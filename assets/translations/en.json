@@ -1,0 +1,32 @@
+{
+    "CLIENT_EXCEPTION": {
+        "FOLDER_NOT_FOUND_ERROR": "Folder not found.",
+        "FILE_NOT_FOUND_ERROR": "File not found.",
+        "FILE_READ_OPERATION_ERROR": "An error occurred while reading the file.",
+        "NULL_POINTER_ERROR": "An error occurred due to a null value.",
+        "COLOR_NOT_FOUND_ERROR": "Color not found.",
+        "TRANSLATION_NOT_FOUND_ERROR": "Translation not found.",
+        "TRANSLATION_UPDATE_ERROR": "An error occurred while updating translations.",
+        "STRING_OPERATION_ERROR": "An error occurred during string operation.",
+        "ENUM_NOT_FOUND_ERROR": "Enumeration value not found."
+    },
+    "APPLICATION_TEXT": {
+        "APPLICATION_NAME": "OBFUSCATION CONTROLLER",
+        "SETTINGS": "Settings",
+        "LANGUAGES": "Languages",
+        "ENGLISH": "English",
+        "TURKISH": "Turkish",
+        "THEMES": "Themes",
+        "LIGHT_THEME": "Light Theme",
+        "DARK_THEME": "Dark Theme",
+        "DRAG_AND_DROP_OBFUSCATION_FILE": "Drag and Drop\n(*.txt)",
+        "DRAG_AND_DROP_DEPENDENCY_FOLDER": "Drag and Drop\n(Folder)",
+        "NO_RESULTS_FOUND": "We couldn't find anything :(",
+        "OBFUSCATION_FILE": "Obfuscation File",
+        "DEPENDENCY_FOLDER": "Dependency Folder",
+        "CLEAR": "Clear",
+        "START": "Start",
+        "BACK": "Back",
+        "REFRESH": "Refresh"
+    }
+}

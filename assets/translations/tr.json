@@ -1,0 +1,32 @@
+{
+    "CLIENT_EXCEPTION": {
+        "FOLDER_NOT_FOUND_ERROR": "Klasör bulunamadı.",
+        "FILE_NOT_FOUND_ERROR": "Dosya bulunamadı.",
+        "FILE_READ_OPERATION_ERROR": "Dosya okunurken bir hata oluştu.",
+        "NULL_POINTER_ERROR": "Null değer nedeniyle bir hata oluştu.",
+        "COLOR_NOT_FOUND_ERROR": "Renk bulunamadı.",
+        "TRANSLATION_NOT_FOUND_ERROR": "Çeviri bulunamadı.",
+        "TRANSLATION_UPDATE_ERROR": "Çeviriler güncellenirken bir hata oluştu.",
+        "STRING_OPERATION_ERROR": "String operasyonu sırasında bir hata oluştu.",
+        "ENUM_NOT_FOUND_ERROR": "Sıralama değeri bulunamadı."
+    },
+    "APPLICATION_TEXT": {
+        "APPLICATION_NAME": "OBFUSCATION DENETLEYICI",
+        "SETTINGS": "Ayarlar",
+        "LANGUAGES": "Diller",
+        "ENGLISH": "İngilizce",
+        "TURKISH": "Türkçe",
+        "THEMES": "Temalar",
+        "LIGHT_THEME": "Aydınlık Tema",
+        "DARK_THEME": "Karanlık Tema",
+        "DRAG_AND_DROP_OBFUSCATION_FILE": "Sürükle ve Bırak\n(*.txt)",
+        "DRAG_AND_DROP_DEPENDENCY_FOLDER": "Sürükle ve Bırak\n(Klasör)",
+        "NO_RESULTS_FOUND": "Hiçbir şey bulamadık :(",
+        "OBFUSCATION_FILE": "Obfuscation Dosyası",
+        "DEPENDENCY_FOLDER": "Bağımlılık Klasörü",
+        "CLEAR": "Temizle",
+        "START": "Başlat",
+        "BACK": "Geri",
+        "REFRESH": "Yenile"
+    }
+}
