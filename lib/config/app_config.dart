@@ -8,6 +8,9 @@ class AppConfig {
   /// Represents the active environment.
   static late final FlavorConfigModel environment;
 
+  /// Default username.
+  static const String defaultUsername = '-';
+
   /// Default language type.
   static const LanguageType defaultLanguageType = LanguageType.english;
 

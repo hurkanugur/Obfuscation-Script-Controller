@@ -6,6 +6,7 @@ import 'package:obfuscation_controller/config/app_strings.dart';
 import 'package:obfuscation_controller/core/error/enum/client_exception_type.dart';
 import 'package:obfuscation_controller/core/error/model/client_failure.dart';
 import 'package:obfuscation_controller/core/error/model/failure.dart';
+import 'package:obfuscation_controller/core/error/model/server_failure.dart';
 import 'package:obfuscation_controller/core/localization/enum/language_type.dart';
 import 'package:obfuscation_controller/core/localization/enum/text_type.dart';
 import 'package:obfuscation_controller/core/storage/extension/shared_preference_extension.dart';
@@ -86,7 +87,9 @@ class LocalizationController extends StateNotifier<LocalizationState> {
   /// Translates the given [Failure].
   String translateFailure({required Failure failure}) {
     try {
-      if (failure is ClientFailure) {
+      if (failure is ServerFailure) {
+        return state.translations['SERVER_EXCEPTION']![failure.serverExceptionType.name][failure.serverProblemType.name];
+      } else if (failure is ClientFailure) {
         return state.translations['CLIENT_EXCEPTION']![failure.clientExceptionType.name];
       }
     } catch (ex) {
@@ -96,7 +99,9 @@ class LocalizationController extends StateNotifier<LocalizationState> {
         clientExceptionType: ClientExceptionType.translationNotFoundError,
       );
 
-      if (failure is ClientFailure) {
+      if (failure is ServerFailure) {
+        return 'SERVER_EXCEPTION.${failure.serverExceptionType.name}.${failure.serverProblemType.name}';
+      } else if (failure is ClientFailure) {
         return 'CLIENT_EXCEPTION.${failure.clientExceptionType.name}';
       }
     }

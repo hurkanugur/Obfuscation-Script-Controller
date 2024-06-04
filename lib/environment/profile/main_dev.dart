@@ -7,6 +7,7 @@ void main() {
   AppConfig.environment = const FlavorConfigModel(
     flavorType: FlavorType.dev,
     appNameTag: ' (DEV)',
+    bundleID: 'com.example.obfuscation_controller.dev',
   );
 
   common.main();

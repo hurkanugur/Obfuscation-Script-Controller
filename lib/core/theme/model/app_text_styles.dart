@@ -8,6 +8,8 @@ class AppTextStyles extends ThemeExtension<AppTextStyles> {
   final TextStyle? mediumBoldTextWithTransparentBackground;
   final TextStyle? largeTextWithTransparentBackground;
   final TextStyle? largeBoldTextWithTransparentBackground;
+  final TextStyle? xlargeTextWithTransparentBackground;
+  final TextStyle? xlargeBoldTextWithTransparentBackground;
 
   // Filled Text Colors
   final TextStyle? smallTextWithFilledBackground;
@@ -16,6 +18,8 @@ class AppTextStyles extends ThemeExtension<AppTextStyles> {
   final TextStyle? mediumBoldTextWithFilledBackground;
   final TextStyle? largeTextWithFilledBackground;
   final TextStyle? largeBoldTextWithFilledBackground;
+  final TextStyle? xlargeTextWithFilledBackground;
+  final TextStyle? xlargeBoldTextWithFilledBackground;
 
   // Disabled Transparent Text Colors
   final TextStyle? smallDisabledTextWithTransparentBackground;
@@ -24,6 +28,8 @@ class AppTextStyles extends ThemeExtension<AppTextStyles> {
   final TextStyle? mediumBoldDisabledTextWithTransparentBackground;
   final TextStyle? largeDisabledTextWithTransparentBackground;
   final TextStyle? largeBoldDisabledTextWithTransparentBackground;
+  final TextStyle? xlargeDisabledTextWithTransparentBackground;
+  final TextStyle? xlargeBoldDisabledTextWithTransparentBackground;
 
   // Disabled Filled Text Colors
   final TextStyle? smallDisabledTextWithFilledBackground;
@@ -32,6 +38,8 @@ class AppTextStyles extends ThemeExtension<AppTextStyles> {
   final TextStyle? mediumBoldDisabledTextWithFilledBackground;
   final TextStyle? largeDisabledTextWithFilledBackground;
   final TextStyle? largeBoldDisabledTextWithFilledBackground;
+  final TextStyle? xlargeDisabledTextWithFilledBackground;
+  final TextStyle? xlargeBoldDisabledTextWithFilledBackground;
 
   // Info Text Colors
   final TextStyle? smallInfoText;
@@ -40,6 +48,8 @@ class AppTextStyles extends ThemeExtension<AppTextStyles> {
   final TextStyle? mediumInfoBoldText;
   final TextStyle? largeInfoText;
   final TextStyle? largeInfoBoldText;
+  final TextStyle? xlargeInfoText;
+  final TextStyle? xlargeInfoBoldText;
 
   // Warning Text Colors
   final TextStyle? smallWarningText;
@@ -48,6 +58,8 @@ class AppTextStyles extends ThemeExtension<AppTextStyles> {
   final TextStyle? mediumWarningBoldText;
   final TextStyle? largeWarningText;
   final TextStyle? largeWarningBoldText;
+  final TextStyle? xlargeWarningText;
+  final TextStyle? xlargeWarningBoldText;
 
   // Error Text Colors
   final TextStyle? smallErrorText;
@@ -56,6 +68,8 @@ class AppTextStyles extends ThemeExtension<AppTextStyles> {
   final TextStyle? mediumErrorBoldText;
   final TextStyle? largeErrorText;
   final TextStyle? largeErrorBoldText;
+  final TextStyle? xlargeErrorText;
+  final TextStyle? xlargeErrorBoldText;
 
   const AppTextStyles({
     // Transparent Text Colors
@@ -65,6 +79,8 @@ class AppTextStyles extends ThemeExtension<AppTextStyles> {
     required this.mediumBoldTextWithTransparentBackground,
     required this.largeTextWithTransparentBackground,
     required this.largeBoldTextWithTransparentBackground,
+    required this.xlargeTextWithTransparentBackground,
+    required this.xlargeBoldTextWithTransparentBackground,
     // Filled Text Colors
     required this.smallTextWithFilledBackground,
     required this.smallBoldTextWithFilledBackground,
@@ -72,6 +88,8 @@ class AppTextStyles extends ThemeExtension<AppTextStyles> {
     required this.mediumBoldTextWithFilledBackground,
     required this.largeTextWithFilledBackground,
     required this.largeBoldTextWithFilledBackground,
+    required this.xlargeTextWithFilledBackground,
+    required this.xlargeBoldTextWithFilledBackground,
     // Disabled Transparent Text Colors
     required this.smallDisabledTextWithTransparentBackground,
     required this.smallBoldDisabledTextWithTransparentBackground,
@@ -79,6 +97,8 @@ class AppTextStyles extends ThemeExtension<AppTextStyles> {
     required this.mediumBoldDisabledTextWithTransparentBackground,
     required this.largeDisabledTextWithTransparentBackground,
     required this.largeBoldDisabledTextWithTransparentBackground,
+    required this.xlargeDisabledTextWithTransparentBackground,
+    required this.xlargeBoldDisabledTextWithTransparentBackground,
     // Disabled Filled Text Colors
     required this.smallDisabledTextWithFilledBackground,
     required this.smallBoldDisabledTextWithFilledBackground,
@@ -86,6 +106,8 @@ class AppTextStyles extends ThemeExtension<AppTextStyles> {
     required this.mediumBoldDisabledTextWithFilledBackground,
     required this.largeDisabledTextWithFilledBackground,
     required this.largeBoldDisabledTextWithFilledBackground,
+    required this.xlargeDisabledTextWithFilledBackground,
+    required this.xlargeBoldDisabledTextWithFilledBackground,
     // Info Text Colors
     required this.smallInfoText,
     required this.smallInfoBoldText,
@@ -93,6 +115,8 @@ class AppTextStyles extends ThemeExtension<AppTextStyles> {
     required this.mediumInfoBoldText,
     required this.largeInfoText,
     required this.largeInfoBoldText,
+    required this.xlargeInfoText,
+    required this.xlargeInfoBoldText,
     // Warning Text Colors
     required this.smallWarningText,
     required this.smallWarningBoldText,
@@ -100,6 +124,8 @@ class AppTextStyles extends ThemeExtension<AppTextStyles> {
     required this.mediumWarningBoldText,
     required this.largeWarningText,
     required this.largeWarningBoldText,
+    required this.xlargeWarningText,
+    required this.xlargeWarningBoldText,
     // Error Text Colors
     required this.smallErrorText,
     required this.smallErrorBoldText,
@@ -107,6 +133,8 @@ class AppTextStyles extends ThemeExtension<AppTextStyles> {
     required this.mediumErrorBoldText,
     required this.largeErrorText,
     required this.largeErrorBoldText,
+    required this.xlargeErrorText,
+    required this.xlargeErrorBoldText,
   });
 
   @override
@@ -118,6 +146,8 @@ class AppTextStyles extends ThemeExtension<AppTextStyles> {
     TextStyle? mediumBoldTextWithTransparentBackground,
     TextStyle? largeTextWithTransparentBackground,
     TextStyle? largeBoldTextWithTransparentBackground,
+    TextStyle? xlargeTextWithTransparentBackground,
+    TextStyle? xlargeBoldTextWithTransparentBackground,
     // Filled Text Colors
     TextStyle? smallTextWithFilledBackground,
     TextStyle? smallBoldTextWithFilledBackground,
@@ -125,6 +155,8 @@ class AppTextStyles extends ThemeExtension<AppTextStyles> {
     TextStyle? mediumBoldTextWithFilledBackground,
     TextStyle? largeTextWithFilledBackground,
     TextStyle? largeBoldTextWithFilledBackground,
+    TextStyle? xlargeTextWithFilledBackground,
+    TextStyle? xlargeBoldTextWithFilledBackground,
     // Disabled Transparent Text Colors
     TextStyle? smallDisabledTextWithTransparentBackground,
     TextStyle? smallBoldDisabledTextWithTransparentBackground,
@@ -132,6 +164,8 @@ class AppTextStyles extends ThemeExtension<AppTextStyles> {
     TextStyle? mediumBoldDisabledTextWithTransparentBackground,
     TextStyle? largeDisabledTextWithTransparentBackground,
     TextStyle? largeBoldDisabledTextWithTransparentBackground,
+    TextStyle? xlargeDisabledTextWithTransparentBackground,
+    TextStyle? xlargeBoldDisabledTextWithTransparentBackground,
     // Disabled Filled Text Colors
     TextStyle? smallDisabledTextWithFilledBackground,
     TextStyle? smallBoldDisabledTextWithFilledBackground,
@@ -139,6 +173,8 @@ class AppTextStyles extends ThemeExtension<AppTextStyles> {
     TextStyle? mediumBoldDisabledTextWithFilledBackground,
     TextStyle? largeDisabledTextWithFilledBackground,
     TextStyle? largeBoldDisabledTextWithFilledBackground,
+    TextStyle? xlargeDisabledTextWithFilledBackground,
+    TextStyle? xlargeBoldDisabledTextWithFilledBackground,
     // Info Text Colors
     TextStyle? smallInfoText,
     TextStyle? smallInfoBoldText,
@@ -146,6 +182,8 @@ class AppTextStyles extends ThemeExtension<AppTextStyles> {
     TextStyle? mediumInfoBoldText,
     TextStyle? largeInfoText,
     TextStyle? largeInfoBoldText,
+    TextStyle? xlargeInfoText,
+    TextStyle? xlargeInfoBoldText,
     // Warning Text Colors
     TextStyle? smallWarningText,
     TextStyle? smallWarningBoldText,
@@ -153,6 +191,8 @@ class AppTextStyles extends ThemeExtension<AppTextStyles> {
     TextStyle? mediumWarningBoldText,
     TextStyle? largeWarningText,
     TextStyle? largeWarningBoldText,
+    TextStyle? xlargeWarningText,
+    TextStyle? xlargeWarningBoldText,
     // Error Text Colors
     TextStyle? smallErrorText,
     TextStyle? smallErrorBoldText,
@@ -160,6 +200,8 @@ class AppTextStyles extends ThemeExtension<AppTextStyles> {
     TextStyle? mediumErrorBoldText,
     TextStyle? largeErrorText,
     TextStyle? largeErrorBoldText,
+    TextStyle? xlargeErrorText,
+    TextStyle? xlargeErrorBoldText,
   }) {
     return AppTextStyles(
       // Transparent Text Colors
@@ -169,6 +211,8 @@ class AppTextStyles extends ThemeExtension<AppTextStyles> {
       mediumBoldTextWithTransparentBackground: mediumBoldTextWithTransparentBackground ?? this.mediumBoldTextWithTransparentBackground,
       largeTextWithTransparentBackground: largeTextWithTransparentBackground ?? this.largeTextWithTransparentBackground,
       largeBoldTextWithTransparentBackground: largeBoldTextWithTransparentBackground ?? this.largeBoldTextWithTransparentBackground,
+      xlargeTextWithTransparentBackground: xlargeTextWithTransparentBackground ?? this.xlargeTextWithTransparentBackground,
+      xlargeBoldTextWithTransparentBackground: xlargeBoldTextWithTransparentBackground ?? this.xlargeBoldTextWithTransparentBackground,
       // Filled Text Colors
       smallTextWithFilledBackground: smallTextWithFilledBackground ?? this.smallTextWithFilledBackground,
       smallBoldTextWithFilledBackground: smallBoldTextWithFilledBackground ?? this.smallBoldTextWithFilledBackground,
@@ -176,6 +220,8 @@ class AppTextStyles extends ThemeExtension<AppTextStyles> {
       mediumBoldTextWithFilledBackground: mediumBoldTextWithFilledBackground ?? this.mediumBoldTextWithFilledBackground,
       largeTextWithFilledBackground: largeTextWithFilledBackground ?? this.largeTextWithFilledBackground,
       largeBoldTextWithFilledBackground: largeBoldTextWithFilledBackground ?? this.largeBoldTextWithFilledBackground,
+      xlargeTextWithFilledBackground: xlargeTextWithFilledBackground ?? this.xlargeTextWithFilledBackground,
+      xlargeBoldTextWithFilledBackground: xlargeBoldTextWithFilledBackground ?? this.xlargeBoldTextWithFilledBackground,
       // Disabled Transparent Text Colors
       smallDisabledTextWithTransparentBackground: smallDisabledTextWithTransparentBackground ?? this.smallDisabledTextWithTransparentBackground,
       smallBoldDisabledTextWithTransparentBackground: smallBoldDisabledTextWithTransparentBackground ?? this.smallBoldDisabledTextWithTransparentBackground,
@@ -183,6 +229,8 @@ class AppTextStyles extends ThemeExtension<AppTextStyles> {
       mediumBoldDisabledTextWithTransparentBackground: mediumBoldDisabledTextWithTransparentBackground ?? this.mediumBoldDisabledTextWithTransparentBackground,
       largeDisabledTextWithTransparentBackground: largeDisabledTextWithTransparentBackground ?? this.largeDisabledTextWithTransparentBackground,
       largeBoldDisabledTextWithTransparentBackground: largeBoldDisabledTextWithTransparentBackground ?? this.largeBoldDisabledTextWithTransparentBackground,
+      xlargeDisabledTextWithTransparentBackground: xlargeDisabledTextWithTransparentBackground ?? this.xlargeDisabledTextWithTransparentBackground,
+      xlargeBoldDisabledTextWithTransparentBackground: xlargeBoldDisabledTextWithTransparentBackground ?? this.xlargeBoldDisabledTextWithTransparentBackground,
       // Disabled Filled Text Colors
       smallDisabledTextWithFilledBackground: smallDisabledTextWithFilledBackground ?? this.smallDisabledTextWithFilledBackground,
       smallBoldDisabledTextWithFilledBackground: smallBoldDisabledTextWithFilledBackground ?? this.smallBoldDisabledTextWithFilledBackground,
@@ -190,6 +238,8 @@ class AppTextStyles extends ThemeExtension<AppTextStyles> {
       mediumBoldDisabledTextWithFilledBackground: mediumBoldDisabledTextWithFilledBackground ?? this.mediumBoldDisabledTextWithFilledBackground,
       largeDisabledTextWithFilledBackground: largeDisabledTextWithFilledBackground ?? this.largeDisabledTextWithFilledBackground,
       largeBoldDisabledTextWithFilledBackground: largeBoldDisabledTextWithFilledBackground ?? this.largeBoldDisabledTextWithFilledBackground,
+      xlargeDisabledTextWithFilledBackground: xlargeDisabledTextWithFilledBackground ?? this.xlargeDisabledTextWithFilledBackground,
+      xlargeBoldDisabledTextWithFilledBackground: xlargeBoldDisabledTextWithFilledBackground ?? this.xlargeBoldDisabledTextWithFilledBackground,
       // Info Text Colors
       smallInfoText: smallInfoText ?? this.smallInfoText,
       smallInfoBoldText: smallInfoBoldText ?? this.smallInfoBoldText,
@@ -197,6 +247,8 @@ class AppTextStyles extends ThemeExtension<AppTextStyles> {
       mediumInfoBoldText: mediumInfoBoldText ?? this.mediumInfoBoldText,
       largeInfoText: largeInfoText ?? this.largeInfoText,
       largeInfoBoldText: largeInfoBoldText ?? this.largeInfoBoldText,
+      xlargeInfoText: xlargeInfoText ?? this.xlargeInfoText,
+      xlargeInfoBoldText: xlargeInfoBoldText ?? this.xlargeInfoBoldText,
       // Warning Text Colors
       smallWarningText: smallWarningText ?? this.smallWarningText,
       smallWarningBoldText: smallWarningBoldText ?? this.smallWarningBoldText,
@@ -204,6 +256,8 @@ class AppTextStyles extends ThemeExtension<AppTextStyles> {
       mediumWarningBoldText: mediumWarningBoldText ?? this.mediumWarningBoldText,
       largeWarningText: largeWarningText ?? this.largeWarningText,
       largeWarningBoldText: largeWarningBoldText ?? this.largeWarningBoldText,
+      xlargeWarningText: xlargeWarningText ?? this.xlargeWarningText,
+      xlargeWarningBoldText: xlargeWarningBoldText ?? this.xlargeWarningBoldText,
       // Error Text Colors
       smallErrorText: smallErrorText ?? this.smallErrorText,
       smallErrorBoldText: smallErrorBoldText ?? this.smallErrorBoldText,
@@ -211,6 +265,8 @@ class AppTextStyles extends ThemeExtension<AppTextStyles> {
       mediumErrorBoldText: mediumErrorBoldText ?? this.mediumErrorBoldText,
       largeErrorText: largeErrorText ?? this.largeErrorText,
       largeErrorBoldText: largeErrorBoldText ?? this.largeErrorBoldText,
+      xlargeErrorText: xlargeErrorText ?? this.xlargeErrorText,
+      xlargeErrorBoldText: xlargeErrorBoldText ?? this.xlargeErrorBoldText,
     );
   }
 
@@ -228,6 +284,8 @@ class AppTextStyles extends ThemeExtension<AppTextStyles> {
       mediumBoldTextWithTransparentBackground: TextStyle.lerp(mediumBoldTextWithTransparentBackground, other.mediumBoldTextWithTransparentBackground, t),
       largeTextWithTransparentBackground: TextStyle.lerp(largeTextWithTransparentBackground, other.largeTextWithTransparentBackground, t),
       largeBoldTextWithTransparentBackground: TextStyle.lerp(largeBoldTextWithTransparentBackground, other.largeBoldTextWithTransparentBackground, t),
+      xlargeTextWithTransparentBackground: TextStyle.lerp(xlargeTextWithTransparentBackground, other.xlargeTextWithTransparentBackground, t),
+      xlargeBoldTextWithTransparentBackground: TextStyle.lerp(xlargeBoldTextWithTransparentBackground, other.xlargeBoldTextWithTransparentBackground, t),
       // Filled Text Colors
       smallTextWithFilledBackground: TextStyle.lerp(smallTextWithFilledBackground, other.smallTextWithFilledBackground, t),
       smallBoldTextWithFilledBackground: TextStyle.lerp(smallBoldTextWithFilledBackground, other.smallBoldTextWithFilledBackground, t),
@@ -235,6 +293,8 @@ class AppTextStyles extends ThemeExtension<AppTextStyles> {
       mediumBoldTextWithFilledBackground: TextStyle.lerp(mediumBoldTextWithFilledBackground, other.mediumBoldTextWithFilledBackground, t),
       largeTextWithFilledBackground: TextStyle.lerp(largeTextWithFilledBackground, other.largeTextWithFilledBackground, t),
       largeBoldTextWithFilledBackground: TextStyle.lerp(largeBoldTextWithFilledBackground, other.largeBoldTextWithFilledBackground, t),
+      xlargeTextWithFilledBackground: TextStyle.lerp(xlargeTextWithFilledBackground, other.xlargeTextWithFilledBackground, t),
+      xlargeBoldTextWithFilledBackground: TextStyle.lerp(xlargeBoldTextWithFilledBackground, other.xlargeBoldTextWithFilledBackground, t),
       // Disabled Transparent Text Colors
       smallDisabledTextWithTransparentBackground: TextStyle.lerp(smallDisabledTextWithTransparentBackground, other.smallDisabledTextWithTransparentBackground, t),
       smallBoldDisabledTextWithTransparentBackground: TextStyle.lerp(smallBoldDisabledTextWithTransparentBackground, other.smallBoldDisabledTextWithTransparentBackground, t),
@@ -242,6 +302,8 @@ class AppTextStyles extends ThemeExtension<AppTextStyles> {
       mediumBoldDisabledTextWithTransparentBackground: TextStyle.lerp(mediumBoldDisabledTextWithTransparentBackground, other.mediumBoldDisabledTextWithTransparentBackground, t),
       largeDisabledTextWithTransparentBackground: TextStyle.lerp(largeDisabledTextWithTransparentBackground, other.largeDisabledTextWithTransparentBackground, t),
       largeBoldDisabledTextWithTransparentBackground: TextStyle.lerp(largeBoldDisabledTextWithTransparentBackground, other.largeBoldDisabledTextWithTransparentBackground, t),
+      xlargeDisabledTextWithTransparentBackground: TextStyle.lerp(xlargeDisabledTextWithTransparentBackground, other.xlargeDisabledTextWithTransparentBackground, t),
+      xlargeBoldDisabledTextWithTransparentBackground: TextStyle.lerp(xlargeBoldDisabledTextWithTransparentBackground, other.xlargeBoldDisabledTextWithTransparentBackground, t),
       // Disabled Filled Text Colors
       smallDisabledTextWithFilledBackground: TextStyle.lerp(smallDisabledTextWithFilledBackground, other.smallDisabledTextWithFilledBackground, t),
       smallBoldDisabledTextWithFilledBackground: TextStyle.lerp(smallBoldDisabledTextWithFilledBackground, other.smallBoldDisabledTextWithFilledBackground, t),
@@ -249,6 +311,8 @@ class AppTextStyles extends ThemeExtension<AppTextStyles> {
       mediumBoldDisabledTextWithFilledBackground: TextStyle.lerp(mediumBoldDisabledTextWithFilledBackground, other.mediumBoldDisabledTextWithFilledBackground, t),
       largeDisabledTextWithFilledBackground: TextStyle.lerp(largeDisabledTextWithFilledBackground, other.largeDisabledTextWithFilledBackground, t),
       largeBoldDisabledTextWithFilledBackground: TextStyle.lerp(largeBoldDisabledTextWithFilledBackground, other.largeBoldDisabledTextWithFilledBackground, t),
+      xlargeDisabledTextWithFilledBackground: TextStyle.lerp(xlargeDisabledTextWithFilledBackground, other.xlargeDisabledTextWithFilledBackground, t),
+      xlargeBoldDisabledTextWithFilledBackground: TextStyle.lerp(xlargeBoldDisabledTextWithFilledBackground, other.xlargeBoldDisabledTextWithFilledBackground, t),
       // Info Text Colors
       smallInfoText: TextStyle.lerp(smallInfoText, other.smallInfoText, t),
       smallInfoBoldText: TextStyle.lerp(smallInfoBoldText, other.smallInfoBoldText, t),
@@ -256,6 +320,8 @@ class AppTextStyles extends ThemeExtension<AppTextStyles> {
       mediumInfoBoldText: TextStyle.lerp(mediumInfoBoldText, other.mediumInfoBoldText, t),
       largeInfoText: TextStyle.lerp(largeInfoText, other.largeInfoText, t),
       largeInfoBoldText: TextStyle.lerp(largeInfoBoldText, other.largeInfoBoldText, t),
+      xlargeInfoText: TextStyle.lerp(xlargeInfoText, other.xlargeInfoText, t),
+      xlargeInfoBoldText: TextStyle.lerp(xlargeInfoBoldText, other.xlargeInfoBoldText, t),
       // Warning Text Colors
       smallWarningText: TextStyle.lerp(smallWarningText, other.smallWarningText, t),
       smallWarningBoldText: TextStyle.lerp(smallWarningBoldText, other.smallWarningBoldText, t),
@@ -263,6 +329,8 @@ class AppTextStyles extends ThemeExtension<AppTextStyles> {
       mediumWarningBoldText: TextStyle.lerp(mediumWarningBoldText, other.mediumWarningBoldText, t),
       largeWarningText: TextStyle.lerp(largeWarningText, other.largeWarningText, t),
       largeWarningBoldText: TextStyle.lerp(largeWarningBoldText, other.largeWarningBoldText, t),
+      xlargeWarningText: TextStyle.lerp(xlargeWarningText, other.xlargeWarningText, t),
+      xlargeWarningBoldText: TextStyle.lerp(xlargeWarningBoldText, other.xlargeWarningBoldText, t),
       // Error Text Colors
       smallErrorText: TextStyle.lerp(smallErrorText, other.smallErrorText, t),
       smallErrorBoldText: TextStyle.lerp(smallErrorBoldText, other.smallErrorBoldText, t),
@@ -270,6 +338,8 @@ class AppTextStyles extends ThemeExtension<AppTextStyles> {
       mediumErrorBoldText: TextStyle.lerp(mediumErrorBoldText, other.mediumErrorBoldText, t),
       largeErrorText: TextStyle.lerp(largeErrorText, other.largeErrorText, t),
       largeErrorBoldText: TextStyle.lerp(largeErrorBoldText, other.largeErrorBoldText, t),
+      xlargeErrorText: TextStyle.lerp(xlargeErrorText, other.xlargeErrorText, t),
+      xlargeErrorBoldText: TextStyle.lerp(xlargeErrorBoldText, other.xlargeErrorBoldText, t),
     );
   }
 }

@@ -24,7 +24,7 @@ class AdvancedNoResultsAnimation extends ConsumerWidget {
             padding: EdgeInsets.only(
               left: 20,
               right: 20,
-              bottom: MediaQuery.of(context).viewPadding.bottom,
+              bottom: MediaQuery.viewPaddingOf(context).bottom,
             ),
             constraints: BoxConstraints(
               minHeight: constraints.maxHeight,
@@ -34,7 +34,6 @@ class AdvancedNoResultsAnimation extends ConsumerWidget {
                 AdvancedLottieAnimation(
                   lottieAnimationPath: AppResources.lottieNoResultsAnimationPath,
                   animationHeight: lottieHeight,
-                  isLottieAnimationVisible: true,
                 ),
                 const SizedBox(height: 15),
                 Text(

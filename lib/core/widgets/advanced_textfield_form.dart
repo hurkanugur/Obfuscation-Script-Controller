@@ -15,8 +15,7 @@ class AdvancedTextFieldForm extends ConsumerWidget {
   final TextInputAction textInputAction;
   final AdvancedBorderModel border;
   final String? hintText;
-  final int? minLines;
-  final int maxLines;
+  final int? maxLines;
   final int? maxLength;
   final List<TextInputFormatter>? inputFormatters;
   final bool isReadOnly;
@@ -37,7 +36,6 @@ class AdvancedTextFieldForm extends ConsumerWidget {
     this.textInputAction = TextInputAction.done,
     this.border = const AdvancedBorderModel(),
     this.hintText,
-    this.minLines,
     this.maxLines = 1,
     this.maxLength,
     this.inputFormatters,
@@ -60,7 +58,6 @@ class AdvancedTextFieldForm extends ConsumerWidget {
     TextInputAction? textInputAction,
     AdvancedBorderModel? border,
     String? hintText,
-    int? minLines,
     int? maxLines,
     int? maxLength,
     List<TextInputFormatter>? inputFormatters,
@@ -81,7 +78,6 @@ class AdvancedTextFieldForm extends ConsumerWidget {
       textInputAction: textInputAction ?? this.textInputAction,
       border: border ?? this.border,
       hintText: hintText ?? this.hintText,
-      minLines: minLines ?? this.minLines,
       maxLines: maxLines ?? this.maxLines,
       maxLength: maxLength ?? this.maxLength,
       inputFormatters: inputFormatters ?? this.inputFormatters,
@@ -96,8 +92,10 @@ class AdvancedTextFieldForm extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return SizedBox(
-      height: AppDimensions.widgetHeight,
+    return Container(
+      constraints: BoxConstraints(
+        minHeight: AppDimensions.widgetHeight,
+      ),
       width: MediaQuery.sizeOf(context).width,
       child: _createTextField(context: context),
     );
@@ -109,7 +107,7 @@ class AdvancedTextFieldForm extends ConsumerWidget {
       textInputAction: textInputAction,
       controller: textEditingController,
       focusNode: focusNode,
-      minLines: minLines,
+      minLines: 1,
       maxLines: maxLines,
       maxLength: maxLength,
       inputFormatters: inputFormatters,
@@ -128,7 +126,7 @@ class AdvancedTextFieldForm extends ConsumerWidget {
         hintStyle: context.appTextStyles.mediumDisabledTextWithTransparentBackground,
         prefixIcon: _createTitleSection(context: context),
         suffixIcon: _createIconButton(context: context, advancedIconButtonModel: suffixIconButton),
-        contentPadding: const EdgeInsets.only(bottom: 16),
+        contentPadding: const EdgeInsets.only(bottom: 15),
         floatingLabelAlignment: FloatingLabelAlignment.start,
         floatingLabelBehavior: FloatingLabelBehavior.never,
         fillColor: isReadOnly ? context.appColors.transparentWidgetDisabledBackgroundColor : context.appColors.transparentWidgetBackgroundColor,

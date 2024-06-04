@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:obfuscation_controller/app/presentation/launch/provider/launch_view_provider.dart';
-import 'package:obfuscation_controller/app/presentation/launch/widget/application_name.dart';
-import 'package:obfuscation_controller/app/presentation/launch/widget/launch_lottie_animation.dart';
+import 'package:obfuscation_controller/app/presentation/launch/widget/launch_view_application_name_text.dart';
+import 'package:obfuscation_controller/app/presentation/launch/widget/launch_view_lottie_animation.dart';
 import 'package:obfuscation_controller/core/theme/extension/theme_extension.dart';
 import 'package:obfuscation_controller/core/widgets/advanced_pop_scope.dart';
 
@@ -27,7 +27,7 @@ class _LaunchViewState extends ConsumerState<LaunchView> {
   @override
   Widget build(BuildContext context) {
     return AdvancedPopScope(
-      onPopScope: () => _onDeviceBackButtonPressed(ref),
+      onPopScope: () async => await _onDeviceBackButtonPressed(ref: ref),
       child: Scaffold(
         backgroundColor: context.appColors.scaffoldBackgroundColor,
         body: const Padding(
@@ -35,8 +35,8 @@ class _LaunchViewState extends ConsumerState<LaunchView> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              ApplicationName(),
-              Expanded(flex: 1, child: LaunchLottieAnimation()),
+              LaunchViewApplicationNameText(),
+              Expanded(flex: 1, child: LaunchViewLottieAnimation()),
             ],
           ),
         ),
@@ -44,5 +44,5 @@ class _LaunchViewState extends ConsumerState<LaunchView> {
     );
   }
 
-  Future<void> _onDeviceBackButtonPressed(WidgetRef ref) async {}
+  Future<void> _onDeviceBackButtonPressed({required WidgetRef ref}) async {}
 }

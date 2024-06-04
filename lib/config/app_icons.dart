@@ -5,7 +5,6 @@ class AppIcons {
   const AppIcons._();
 
   // General Icons
-  static const IconData warningIcon = FontAwesomeIcons.triangleExclamation;
   static const IconData refreshIcon = FontAwesomeIcons.arrowsRotate;
   static const IconData backIcon = FontAwesomeIcons.arrowLeft;
   static const IconData settingsIcon = FontAwesomeIcons.gear;
@@ -16,4 +15,9 @@ class AppIcons {
   static const IconData lightThemeIcon = FontAwesomeIcons.sun;
   static const IconData darkThemeIcon = FontAwesomeIcons.moon;
   static const IconData localization = FontAwesomeIcons.language;
+  static const IconData errorIcon = FontAwesomeIcons.circleXmark;
+  static const IconData openFileIcon = FontAwesomeIcons.fileLines;
+  static const IconData openFolderIcon = FontAwesomeIcons.folderOpen;
+  static const IconData addFileIcon = FontAwesomeIcons.fileCirclePlus;
+  static const IconData addFolderIcon = FontAwesomeIcons.folderPlus;
 }

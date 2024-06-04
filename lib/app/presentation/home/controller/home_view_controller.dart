@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:obfuscation_controller/app/domain/editor/usecase/pick_dependency_folder_usecase.dart';
+import 'package:obfuscation_controller/app/domain/editor/usecase/pick_obfuscation_file_usecase.dart';
+import 'package:obfuscation_controller/core/base/model/operation_result.dart';
+import 'package:obfuscation_controller/core/log/extension/snackbar_extension.dart';
 
 class HomeViewState {
   final String obfuscationFilePath;
@@ -39,8 +43,15 @@ class HomeViewState {
 }
 
 class HomeViewController extends StateNotifier<HomeViewState> {
-  HomeViewController()
-      : super(
+  final PickObfuscationFileUseCase _pickObfuscationFileUseCase;
+  final PickDependencyFolderUseCase _pickDependencyFolderUseCase;
+
+  HomeViewController({
+    required PickObfuscationFileUseCase pickObfuscationFileUseCase,
+    required PickDependencyFolderUseCase pickDependencyFolderUseCase,
+  })  : _pickObfuscationFileUseCase = pickObfuscationFileUseCase,
+        _pickDependencyFolderUseCase = pickDependencyFolderUseCase,
+        super(
           const HomeViewState(
             obfuscationFilePath: '',
             isObfuscationFilePathFieldDisabled: false,
@@ -86,6 +97,30 @@ class HomeViewController extends StateNotifier<HomeViewState> {
 
   /// Setter for [isDependencyFolderPathBeingDroppedCurrently].
   set isDependencyFolderPathBeingDroppedCurrently(bool isDependencyFolderPathBeingDroppedCurrently) => state = state.copyWith(isDependencyFolderPathBeingDroppedCurrently: isDependencyFolderPathBeingDroppedCurrently);
+
+  Future<void> pickObfuscationFile({required WidgetRef ref}) async {
+    final OperationResult<String?> operationResult = await _pickObfuscationFileUseCase.execute();
+
+    if (operationResult.hasData) {
+      state = state.copyWith(obfuscationFilePath: operationResult.data);
+    }
+
+    if (operationResult.hasFailure) {
+      ref.showFailureSnackbar(failure: operationResult.failure!);
+    }
+  }
+
+  Future<void> pickDependencyFolder({required WidgetRef ref}) async {
+    final OperationResult<String?> operationResult = await _pickDependencyFolderUseCase.execute();
+
+    if (operationResult.hasData) {
+      state = state.copyWith(dependencyFolderPath: operationResult.data);
+    }
+
+    if (operationResult.hasFailure) {
+      ref.showFailureSnackbar(failure: operationResult.failure!);
+    }
+  }
 
   void resetState() {
     state = const HomeViewState(

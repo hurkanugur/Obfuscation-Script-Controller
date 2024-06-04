@@ -1,6 +1,9 @@
 class AppResources {
   const AppResources._();
 
+  /// Web certificate paths.
+  static const List<String> webCertificatePaths = [];
+
   /// The file path for the English translation file.
   static const String englishTranslationFilePath = 'assets/translations/en.json';
 
@@ -15,4 +18,10 @@ class AppResources {
 
   /// URL: https://lottiefiles.com/animations/wind-icon-wdUwYp3r2m?from=search
   static const String lottieNoResultsAnimationPath = 'assets/lottie/no_results_animation.json';
+
+  /// URL: https://lottiefiles.com/animations/404-error-animation-yqzKoON16v
+  static const String lottieLogDetailsAnimationPath = 'assets/lottie/log_details_animation.json';
+
+  /// URL: https://lottiefiles.com/animations/404-error-animation-yqzKoON16v
+  static const String lottiePermissionMenuAnimationPath = 'assets/lottie/permission_menu_animation.json';
 }

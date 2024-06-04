@@ -4,10 +4,7 @@ import 'package:obfuscation_controller/environment/model/flavor_config_model.dar
 import 'package:obfuscation_controller/main.dart' as common;
 
 void main() {
-  AppConfig.environment = const FlavorConfigModel(
-    flavorType: FlavorType.prod,
-    appNameTag: '',
-  );
+  AppConfig.environment = const FlavorConfigModel(flavorType: FlavorType.prod, appNameTag: '', bundleID: 'com.example.obfuscation_controller.prod');
 
   common.main();
 }

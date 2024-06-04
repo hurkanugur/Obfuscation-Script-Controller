@@ -6,10 +6,12 @@ import 'package:obfuscation_controller/environment/enum/flavor_type.dart';
 class FlavorConfigModel {
   final FlavorType flavorType;
   final String appNameTag;
+  final String bundleID;
 
   const FlavorConfigModel({
     required this.flavorType,
     required this.appNameTag,
+    required this.bundleID,
   });
 
   String getApplicationName({required WidgetRef ref}) {

@@ -14,8 +14,7 @@ class AdvancedTextField extends ConsumerWidget {
   final TextInputAction textInputAction;
   final AdvancedBorderModel border;
   final String? hintText;
-  final int? minLines;
-  final int maxLines;
+  final int? maxLines;
   final int? maxLength;
   final List<TextInputFormatter>? inputFormatters;
   final bool isReadOnly;
@@ -38,7 +37,6 @@ class AdvancedTextField extends ConsumerWidget {
     this.textInputAction = TextInputAction.done,
     this.border = const AdvancedBorderModel(),
     this.hintText,
-    this.minLines,
     this.maxLines = 1,
     this.maxLength,
     this.inputFormatters,
@@ -63,7 +61,6 @@ class AdvancedTextField extends ConsumerWidget {
     TextInputAction? textInputAction,
     AdvancedBorderModel? border,
     String? hintText,
-    int? minLines,
     int? maxLines,
     int? maxLength,
     List<TextInputFormatter>? inputFormatters,
@@ -84,7 +81,6 @@ class AdvancedTextField extends ConsumerWidget {
       textInputAction: textInputAction ?? this.textInputAction,
       border: border ?? this.border,
       hintText: hintText ?? this.hintText,
-      minLines: minLines ?? this.minLines,
       maxLines: maxLines ?? this.maxLines,
       maxLength: maxLength ?? this.maxLength,
       inputFormatters: inputFormatters ?? this.inputFormatters,
@@ -102,8 +98,10 @@ class AdvancedTextField extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return SizedBox(
-      height: AppDimensions.widgetHeight,
+    return Container(
+      constraints: BoxConstraints(
+        minHeight: AppDimensions.widgetHeight,
+      ),
       width: MediaQuery.sizeOf(context).width,
       child: _createTextField(context: context),
     );
@@ -115,7 +113,6 @@ class AdvancedTextField extends ConsumerWidget {
       textInputAction: textInputAction,
       controller: textEditingController,
       focusNode: focusNode,
-      minLines: minLines,
       maxLines: maxLines,
       maxLength: maxLength,
       inputFormatters: inputFormatters,
@@ -134,7 +131,7 @@ class AdvancedTextField extends ConsumerWidget {
         hintStyle: context.appTextStyles.mediumDisabledTextWithTransparentBackground,
         prefixIcon: _createIconButton(context: context, advancedIconButtonModel: prefixIconButton),
         suffixIcon: _createIconButton(context: context, advancedIconButtonModel: suffixIconButton),
-        contentPadding: const EdgeInsets.symmetric(horizontal: 8.0),
+        contentPadding: null,
         floatingLabelAlignment: floatingLabelAlignment,
         floatingLabelBehavior: floatingLabelBehavior,
         fillColor: isReadOnly ? context.appColors.transparentWidgetDisabledBackgroundColor : context.appColors.transparentWidgetBackgroundColor,

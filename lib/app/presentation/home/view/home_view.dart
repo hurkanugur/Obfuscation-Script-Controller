@@ -18,13 +18,14 @@ class _HomeViewState extends ConsumerState<HomeView> {
   @override
   Widget build(BuildContext context) {
     return AdvancedPopScope(
-      onPopScope: () => _onDeviceBackButtonPressed(ref),
+      onPopScope: () async => await _onDeviceBackButtonPressed(ref: ref),
       child: Scaffold(
         backgroundColor: context.appColors.scaffoldBackgroundColor,
         body: const Padding(
           padding: EdgeInsets.all(20),
           child: Column(children: [
             HomeViewTopSection(),
+            SizedBox(height: 20),
             Expanded(
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -35,6 +36,7 @@ class _HomeViewState extends ConsumerState<HomeView> {
                 ],
               ),
             ),
+            SizedBox(height: 20),
             HomeViewBottomSection(),
           ]),
         ),
@@ -42,5 +44,5 @@ class _HomeViewState extends ConsumerState<HomeView> {
     );
   }
 
-  Future<void> _onDeviceBackButtonPressed(WidgetRef ref) async {}
+  Future<void> _onDeviceBackButtonPressed({required WidgetRef ref}) async {}
 }

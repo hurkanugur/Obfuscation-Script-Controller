@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:obfuscation_controller/app/presentation/loading/provider/loading_provider.dart';
+import 'package:obfuscation_controller/core/loading/provider/loading_provider.dart';
 import 'package:obfuscation_controller/config/app_dimensions.dart';
 import 'package:obfuscation_controller/config/app_icons.dart';
 import 'package:obfuscation_controller/core/localization/enum/language_type.dart';

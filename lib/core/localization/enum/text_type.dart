@@ -1,4 +1,11 @@
 enum TextType {
+  databaseOpenOperationSuccess('DATABASE_OPEN_OPERATION_SUCCESS'),
+  databaseCloseOperationSuccess('DATABASE_CLOSE_OPERATION_SUCCESS'),
+  databaseDeleteOperationSuccess('DATABASE_DELETE_OPERATION_SUCCESS'),
+  databaseInsertRowOperationSuccess('DATABASE_INSERT_ROW_OPERATION_SUCCESS'),
+  databaseUpdateRowOperationSuccess('DATABASE_UPDATE_ROW_OPERATION_SUCCESS'),
+  databaseDeleteRowOperationSuccess('DATABASE_DELETE_ROW_OPERATION_SUCCESS'),
+  databaseTable('DATABASE_TABLE'),
   applicationName('APPLICATION_NAME'),
   settings('SETTINGS'),
   languages('LANGUAGES'),
@@ -15,7 +22,28 @@ enum TextType {
   clear('CLEAR'),
   start('START'),
   back('BACK'),
-  refresh('REFRESH');
+  cancel('CANCEL'),
+  refresh('REFRESH'),
+  line('LINE'),
+  errors('ERRORS'),
+  noErrorsFound('NO_ERRORS_FOUND'),
+  noSuchDependencyFound('NO_SUCH_DEPENDENCY_FOUND'),
+  dependencyNeverMentionedInObfuscationFile('DEPENDENCY_NEVER_MENTIONED_IN_OBFUSCATION_FILE'),
+  details('DETAILS'),
+  className('CLASS_NAME'),
+  methodName('METHOD_NAME'),
+  statusCode('STATUS_CODE'),
+  localizedMessage('LOCALIZED_MESSAGE'),
+  stackTrace('STACK_TRACE'),
+  exceptionMessage('EXCEPTION_MESSAGE'),
+  date('DATE'),
+  logDetails('LOG_DETAILS'),
+  close('CLOSE'),
+  cookies('COOKIES'),
+  webCertificateHasBeenTrustedSuccessfully('WEB_CERTIFICATE_HAS_BEEN_TRUSTED_SUCCESSFULLY'),
+  storageAccessPermissionRequestTitle('STORAGE_ACCESS_PERMISSION_REQUEST_TITLE'),
+  storageAccessPermissionRequestExplanation('STORAGE_ACCESS_PERMISSION_REQUEST_EXPLANATION'),
+  openSettings('OPEN_SETTINGS');
 
   final String name;
 

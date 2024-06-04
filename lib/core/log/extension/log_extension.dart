@@ -1,7 +1,10 @@
 import 'package:flutter/foundation.dart';
 import 'package:obfuscation_controller/config/app_strings.dart';
+import 'package:obfuscation_controller/core/datetime/extension/date_extension.dart';
 import 'package:obfuscation_controller/core/error/model/client_failure.dart';
 import 'package:obfuscation_controller/core/error/model/failure.dart';
+import 'package:obfuscation_controller/core/error/model/server_failure.dart';
+import 'package:obfuscation_controller/core/localization/enum/language_type.dart';
 import 'dart:developer' as developer;
 
 import 'package:obfuscation_controller/core/localization/enum/text_type.dart';
@@ -13,14 +16,11 @@ extension LogExtension on StackTrace {
       return;
     }
 
-    final StackTrace currentStackTrace = this;
-
-    final classAndMethodName = _findClassNameAndMethodNameFromStackTrace(currentStackTrace: currentStackTrace);
-
     String successMessage = AppStrings.emptyText;
-    successMessage += '\n[ClassName]: ${classAndMethodName.$1}';
-    successMessage += '\n[MethodName]: ${classAndMethodName.$2}';
-    successMessage += '\n[DateTime]: ${DateTime.now()}';
+
+    successMessage += '\n[ClassName]: ${findClassName()}';
+    successMessage += '\n[MethodName]: ${findMethodName()}';
+    successMessage += '\n[DateTime]: ${DateTime.now().toReadableDateTimeString(languageType: LanguageType.turkish)}';
     successMessage += '\n[Message]: $textType';
     successMessage += data == null ? '' : '\n[Data]: ${data?.toString() ?? AppStrings.emptyText}';
 
@@ -33,16 +33,17 @@ extension LogExtension on StackTrace {
       return;
     }
 
-    final StackTrace currentStackTrace = this;
-
-    final classAndMethodName = _findClassNameAndMethodNameFromStackTrace(currentStackTrace: currentStackTrace);
-
     String errorMessage = AppStrings.emptyText;
-    errorMessage += '\n[ClassName]: ${classAndMethodName.$1}';
-    errorMessage += '\n[MethodName]: ${classAndMethodName.$2}';
-    errorMessage += '\n[DateTime]: ${DateTime.now()}';
 
-    if (failure is ClientFailure) {
+    errorMessage += '\n[ClassName]: ${findClassName()}';
+    errorMessage += '\n[MethodName]: ${findMethodName()}';
+    errorMessage += '\n[DateTime]: ${failure.dateTime.toReadableDateTimeString(languageType: LanguageType.turkish)}';
+
+    if (failure is ServerFailure) {
+      errorMessage += '\n[StatusCode]: ${failure.statusCode ?? AppStrings.emptyText}';
+      errorMessage += '\n[ServerExceptionType]: ${failure.serverExceptionType}';
+      errorMessage += '\n[ServerProblemType]: ${failure.serverProblemType}';
+    } else if (failure is ClientFailure) {
       errorMessage += '\n[ClientExceptionType]: ${failure.clientExceptionType}';
     }
 
@@ -50,13 +51,12 @@ extension LogExtension on StackTrace {
     developer.log(errorMessage, name: 'FAILURE', time: DateTime.now());
   }
 
-  /// Finds the class name and method name from the stack trace.
-  (String, String) _findClassNameAndMethodNameFromStackTrace({required StackTrace currentStackTrace}) {
+  /// Finds the class name from the stack trace.
+  String findClassName() {
     final RegExp regex = RegExp(r'#\d+\s+(.*?)\s+\(');
-    final Match? match = regex.firstMatch(currentStackTrace.toString());
+    final Match? match = regex.firstMatch(toString());
 
     String className = AppStrings.emptyText;
-    String methodName = AppStrings.emptyText;
 
     if (match != null && match.groupCount >= 1) {
       final String? classAndMethodName = match.group(1);
@@ -65,11 +65,31 @@ extension LogExtension on StackTrace {
         final List<String> parts = classAndMethodName.split('.');
         if (parts.length >= 2) {
           className = parts[0];
+        }
+      }
+    }
+
+    return className;
+  }
+
+  /// Finds the method name from the stack trace.
+  String findMethodName() {
+    final RegExp regex = RegExp(r'#\d+\s+(.*?)\s+\(');
+    final Match? match = regex.firstMatch(toString());
+
+    String methodName = AppStrings.emptyText;
+
+    if (match != null && match.groupCount >= 1) {
+      final String? classAndMethodName = match.group(1);
+
+      if (classAndMethodName != null) {
+        final List<String> parts = classAndMethodName.split('.');
+        if (parts.length >= 2) {
           methodName = parts[1];
         }
       }
     }
 
-    return (className, methodName);
+    return methodName;
   }
 }

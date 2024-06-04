@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:obfuscation_controller/app/presentation/loading/provider/loading_provider.dart';
-import 'package:obfuscation_controller/app/presentation/loading/widget/loading_lottie_animation.dart';
+import 'package:obfuscation_controller/core/api/provider/api_provider.dart';
+import 'package:obfuscation_controller/core/api/service/http_service.dart';
+import 'package:obfuscation_controller/core/loading/provider/loading_provider.dart';
+import 'package:obfuscation_controller/core/loading/widget/loading_lottie_animation.dart';
 import 'package:obfuscation_controller/config/app_config.dart';
 import 'package:obfuscation_controller/core/localization/enum/language_type.dart';
 import 'package:obfuscation_controller/core/localization/provider/localization_provider.dart';
 import 'package:obfuscation_controller/core/router/extension/router_extension.dart';
+import 'package:obfuscation_controller/core/security/provider/security_provider.dart';
 import 'package:obfuscation_controller/core/storage/provider/storage_provider.dart';
+import 'package:obfuscation_controller/core/storage/service/database_service.dart';
 import 'package:obfuscation_controller/core/storage/service/shares_preference_service.dart';
 import 'package:obfuscation_controller/core/theme/constants/dark_theme_constants.dart';
 import 'package:obfuscation_controller/core/theme/constants/light_theme_constants.dart';
@@ -18,10 +22,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() async {
   // TODO: Delete this manually set environment variable in the future.
-  AppConfig.environment = const FlavorConfigModel(
-    flavorType: FlavorType.dev,
-    appNameTag: ' (DEV)',
-  );
+  AppConfig.environment = const FlavorConfigModel(flavorType: FlavorType.dev, appNameTag: ' (DEV)', bundleID: 'com.example.obfuscation_controller.dev');
 
   WidgetsFlutterBinding.ensureInitialized();
 
@@ -29,6 +30,7 @@ void main() async {
 
   final SharedPreferenceService sharedPreferenceService = SharedPreferenceService(
     sharedPreferences: await SharedPreferences.getInstance(),
+    fileSecurityService: providerContainer.read(SecurityProvider.fileSecurityServiceProvider),
   );
 
   final localizationController = providerContainer.read(LocalizationProvider.localizationControllerProvider.notifier);
@@ -43,12 +45,18 @@ void main() async {
     ref: null,
   );
 
+  final DatabaseService databaseService = providerContainer.read(StorageProvider.databaseServiceProvider);
+  await databaseService.createAndOpenDatabase();
+
+  final HttpService httpService = await HttpService.createInstance();
+
   runApp(
     ProviderScope(
       overrides: [
         StorageProvider.sharedPreferenceServiceProvider.overrideWithValue(sharedPreferenceService),
         LocalizationProvider.localizationControllerProvider.overrideWith((ref) => localizationController),
         ThemeProvider.themeControllerProvider.overrideWith((ref) => themeController),
+        ApiProvider.httpServiceProvider.overrideWithValue(httpService),
       ],
       child: const MainApp(),
     ),

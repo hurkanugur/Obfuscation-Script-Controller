@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:obfuscation_controller/app/presentation/editor/provider/editor_view.provider.dart';
 import 'package:obfuscation_controller/app/presentation/home/provider/home_view_provider.dart';
-import 'package:obfuscation_controller/app/presentation/loading/provider/loading_provider.dart';
+import 'package:obfuscation_controller/core/loading/provider/loading_provider.dart';
 import 'package:obfuscation_controller/config/app_dimensions.dart';
 import 'package:obfuscation_controller/config/app_icons.dart';
 import 'package:obfuscation_controller/core/localization/enum/language_type.dart';
@@ -106,10 +106,13 @@ class EditorViewTopSection extends ConsumerWidget {
   }
 
   Future<void> _onBackButtonClicked({required WidgetRef ref}) async {
-    final editorViewController = ref.watch(EditorViewProvider.editorViewProvider.notifier);
+    final loadingController = ref.read(LoadingProvider.loadingControllerProvider.notifier);
+    final editorViewController = ref.read(EditorViewProvider.editorViewProvider.notifier);
 
-    editorViewController.resetState();
-    ref.context.goTo(routerType: RouterType.home);
+    if (!loadingController.isLoading) {
+      editorViewController.resetState();
+      ref.context.goTo(routerType: RouterType.home);
+    }
   }
 
   Future<void> _onRefreshButtonClicked({required WidgetRef ref}) async {
@@ -123,6 +126,7 @@ class EditorViewTopSection extends ConsumerWidget {
     await editorViewController.fetchData(
       obfuscationFilePath: homeViewController.obfuscationFilePath,
       dependencyFolderPath: homeViewController.dependencyFolderPath,
+      ref: ref,
     );
     await Future.delayed(const Duration(milliseconds: 200));
 

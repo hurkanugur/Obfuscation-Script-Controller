@@ -7,21 +7,24 @@ class ClientFailure extends Failure {
 
   const ClientFailure({
     required super.stackTrace,
+    required super.dateTime,
     super.exception,
     required this.clientExceptionType,
   });
 
   @override
-  List<Object?> get props => [stackTrace, exception, clientExceptionType];
+  List<Object?> get props => [stackTrace, dateTime, exception, clientExceptionType];
 
   @override
   ClientFailure copyWith({
     StackTrace? stackTrace,
+    DateTime? dateTime,
     Object? exception,
     ClientExceptionType? clientExceptionType,
   }) {
     return ClientFailure(
       stackTrace: stackTrace ?? this.stackTrace,
+      dateTime: dateTime ?? this.dateTime,
       exception: exception ?? this.exception,
       clientExceptionType: clientExceptionType ?? this.clientExceptionType,
     );
@@ -35,6 +38,7 @@ class ClientFailure extends Failure {
   }) {
     final ClientFailure clientFailure = ClientFailure(
       stackTrace: stackTrace,
+      dateTime: DateTime.now(),
       exception: exception,
       clientExceptionType: clientExceptionType,
     );

@@ -7,8 +7,10 @@ import 'package:obfuscation_controller/core/theme/extension/theme_extension.dart
 class AdvancedDragAndDropField extends ConsumerWidget {
   const AdvancedDragAndDropField({
     super.key,
+    required this.fieldName,
     required this.title,
     required this.path,
+    required this.icon,
     required this.onDragDone,
     required this.onDragEntered,
     required this.onDragExited,
@@ -16,6 +18,8 @@ class AdvancedDragAndDropField extends ConsumerWidget {
     required this.isSomethingBeingDraggedCurrently,
   });
 
+  final IconData icon;
+  final String fieldName;
   final String title;
   final String path;
   final Future<void> Function(DropDoneDetails)? onDragDone;
@@ -26,8 +30,10 @@ class AdvancedDragAndDropField extends ConsumerWidget {
 
   /// Creates a copy of this class.
   AdvancedDragAndDropField copyWith({
+    String? fieldName,
     String? title,
     String? path,
+    IconData? icon,
     Future<void> Function(DropDoneDetails)? onDragDone,
     Future<void> Function(DropEventDetails)? onDragEntered,
     Future<void> Function(DropEventDetails)? onDragExited,
@@ -35,8 +41,10 @@ class AdvancedDragAndDropField extends ConsumerWidget {
     bool? isSomethingBeingDraggedCurrently,
   }) {
     return AdvancedDragAndDropField(
+      fieldName: fieldName ?? this.fieldName,
       title: title ?? this.title,
       path: path ?? this.path,
+      icon: icon ?? this.icon,
       onDragDone: onDragDone ?? this.onDragDone,
       onDragEntered: onDragEntered ?? this.onDragEntered,
       onDragExited: onDragExited ?? this.onDragExited,
@@ -61,10 +69,29 @@ class AdvancedDragAndDropField extends ConsumerWidget {
           borderRadius: BorderRadius.circular(AppDimensions.widgetRadius),
         ),
         child: Center(
-          child: Text(
-            path.isEmpty ? title : path,
-            textAlign: TextAlign.center,
-            style: isSomethingBeingDraggedCurrently ? context.appTextStyles.largeBoldTextWithFilledBackground : context.appTextStyles.largeBoldTextWithTransparentBackground,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              if (path.isEmpty) ...[
+                Icon(
+                  icon,
+                  color: isSomethingBeingDraggedCurrently ? context.appColors.filledWidgetForegroundColor : context.appColors.transparentWidgetForegroundColor,
+                  size: AppDimensions.dragAndDropIconSize,
+                ),
+              ],
+              const SizedBox(height: 10),
+              Text(
+                fieldName,
+                textAlign: TextAlign.center,
+                style: isSomethingBeingDraggedCurrently ? context.appTextStyles.largeBoldTextWithFilledBackground : context.appTextStyles.largeBoldTextWithTransparentBackground,
+              ),
+              const SizedBox(height: 10),
+              Text(
+                path.isEmpty ? title : path,
+                textAlign: TextAlign.center,
+                style: isSomethingBeingDraggedCurrently ? context.appTextStyles.mediumTextWithFilledBackground : context.appTextStyles.mediumTextWithTransparentBackground,
+              ),
+            ],
           ),
         ),
       ),

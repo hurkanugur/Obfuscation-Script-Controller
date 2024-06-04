@@ -1,34 +1,49 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:obfuscation_controller/app/domain/file/model/advanced_line_model.dart';
-import 'package:obfuscation_controller/app/domain/file/usecase/fetch_file_contents_usecase.dart';
+import 'package:obfuscation_controller/app/domain/editor/enum/line_type.dart';
+import 'package:obfuscation_controller/app/domain/editor/model/advanced_line_model.dart';
+import 'package:obfuscation_controller/app/domain/editor/usecase/fetch_file_contents_usecase.dart';
 import 'package:obfuscation_controller/core/animation/constants/animation_constants.dart';
 import 'package:obfuscation_controller/core/base/model/operation_result.dart';
+import 'package:obfuscation_controller/core/log/extension/snackbar_extension.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 class EditorViewState {
+  final String obfuscationFilePath;
+  final String dependencyFolderPath;
   final List<AdvancedLineModel> obfuscationFileLines;
   final List<AdvancedLineModel> dependencyFolderContents;
   final ItemScrollController obfuscationFileScrollController;
   final ItemScrollController dependencyFolderScrollController;
+  final ScrollController debugConsoleScrollController;
 
   const EditorViewState({
+    required this.obfuscationFilePath,
+    required this.dependencyFolderPath,
     required this.obfuscationFileLines,
     required this.dependencyFolderContents,
     required this.obfuscationFileScrollController,
     required this.dependencyFolderScrollController,
+    required this.debugConsoleScrollController,
   });
 
   EditorViewState copyWith({
+    String? obfuscationFilePath,
+    String? dependencyFolderPath,
     List<AdvancedLineModel>? obfuscationFileLines,
     List<AdvancedLineModel>? dependencyFolderContents,
     ItemScrollController? obfuscationFileScrollController,
     ItemScrollController? dependencyFolderScrollController,
+    ScrollController? debugConsoleScrollController,
   }) {
     return EditorViewState(
+      obfuscationFilePath: obfuscationFilePath ?? this.obfuscationFilePath,
+      dependencyFolderPath: dependencyFolderPath ?? this.dependencyFolderPath,
       obfuscationFileLines: obfuscationFileLines ?? this.obfuscationFileLines,
       dependencyFolderContents: dependencyFolderContents ?? this.dependencyFolderContents,
       obfuscationFileScrollController: obfuscationFileScrollController ?? this.obfuscationFileScrollController,
       dependencyFolderScrollController: dependencyFolderScrollController ?? this.dependencyFolderScrollController,
+      debugConsoleScrollController: debugConsoleScrollController ?? this.debugConsoleScrollController,
     );
   }
 }
@@ -41,16 +56,20 @@ class EditorViewController extends StateNotifier<EditorViewState> {
   })  : _fetchFileContentsUseCase = fetchFileContentsUseCase,
         super(
           EditorViewState(
+            obfuscationFilePath: '',
+            dependencyFolderPath: '',
             obfuscationFileLines: [],
             dependencyFolderContents: [],
             obfuscationFileScrollController: ItemScrollController(),
             dependencyFolderScrollController: ItemScrollController(),
+            debugConsoleScrollController: ScrollController(),
           ),
         );
 
   Future<void> fetchData({
     required String obfuscationFilePath,
     required String dependencyFolderPath,
+    required WidgetRef ref,
   }) async {
     final OperationResult<Map<String, List<AdvancedLineModel>>> smartLinesResult = _fetchFileContentsUseCase.execute(
       obfuscationFilePath: obfuscationFilePath,
@@ -59,13 +78,15 @@ class EditorViewController extends StateNotifier<EditorViewState> {
 
     if (smartLinesResult.hasData) {
       state = state.copyWith(
+        obfuscationFilePath: smartLinesResult.data.values.first.isEmpty ? '' : smartLinesResult.data.values.first.first.filePath,
         obfuscationFileLines: smartLinesResult.data.values.first,
+        dependencyFolderPath: smartLinesResult.data.values.last.isEmpty ? '' : smartLinesResult.data.values.last.first.filePath,
         dependencyFolderContents: smartLinesResult.data.values.last,
       );
     }
 
-    if (smartLinesResult.hasFailures) {
-      // TODO Show snackbars for error
+    if (smartLinesResult.hasFailure) {
+      ref.showFailureSnackbar(failure: smartLinesResult.failure!);
     }
   }
 
@@ -131,12 +152,37 @@ class EditorViewController extends StateNotifier<EditorViewState> {
     await dependencyFolderScrollToIndex(targetIndex: endIndex);
   }
 
+  int getNumberOfErrors() {
+    final int fileContentErrorsCount = state.obfuscationFileLines.where((e) => e.lineType == LineType.warning).length;
+    final int folderContentErrorsCount = state.dependencyFolderContents.where((e) => e.lineType == LineType.warning).length;
+    return fileContentErrorsCount + folderContentErrorsCount;
+  }
+
+  bool isObfuscationFileLine({required String filePath}) {
+    return filePath == state.obfuscationFilePath;
+  }
+
+  bool isDependencyFolderLine({required String filePath}) {
+    return filePath == state.dependencyFolderPath;
+  }
+
+  List<AdvancedLineModel> getSortedErrorList() {
+    final List<AdvancedLineModel> fileContentErrorLines = state.obfuscationFileLines.where((e) => e.lineType == LineType.warning).toList();
+    final List<AdvancedLineModel> folderContentErrorLines = state.dependencyFolderContents.where((e) => e.lineType == LineType.warning).toList();
+    final List<AdvancedLineModel> combinedList = [...fileContentErrorLines, ...folderContentErrorLines];
+    combinedList.sort((a, b) => a.lineNumber.compareTo(b.lineNumber));
+    return combinedList;
+  }
+
   void resetState() {
     state = EditorViewState(
+      obfuscationFilePath: '',
+      dependencyFolderPath: '',
       obfuscationFileLines: [],
       dependencyFolderContents: [],
       obfuscationFileScrollController: ItemScrollController(),
       dependencyFolderScrollController: ItemScrollController(),
+      debugConsoleScrollController: ScrollController(),
     );
   }
 }

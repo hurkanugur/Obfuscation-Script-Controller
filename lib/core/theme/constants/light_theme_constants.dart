@@ -9,14 +9,14 @@ class LightThemeConstants {
   // Theme Data
   static const String _fontFamily = 'Poppins';
 
-  // Color Palette
-  static const Color lightColor = Colors.white;
-  static const Color darkColor = Color.fromARGB(255, 95, 95, 95);
-  static const Color blueColor = Color(0xFF007ACC);
+  // Light Theme Color Palette
+  static const Color lightColor = Color(0xFFFAFAFA);
+  static const Color darkBlueColor = Color.fromARGB(255, 5, 70, 123);
+  static const Color blueColor = Color.fromARGB(255, 10, 85, 146);
   static const Color redColor = Color(0xFFB00020);
   static const Color orangeColor = Color(0xFFD18616);
-  static const Color lightGrayColor = Color(0xFFCCCCCC);
-  static const Color darkGrayColor = Color(0xFFAAAAAA);
+  static const Color lightGrayColor = Color(0xFFCFD8DC);
+  static const Color darkGrayColor = Color(0xFF90A4AE);
   static const Color barrierColor = kCupertinoModalBarrierColor;
   static const Color transparentColor = Colors.transparent;
 
@@ -24,6 +24,7 @@ class LightThemeConstants {
   static const double smallFontSize = 12.0;
   static const double mediumFontSize = 16.0;
   static const double largeFontSize = 20.0;
+  static const double xlargeFontSize = 24.0;
 
   static const AppColors appColors = AppColors(
     // General Colors
@@ -38,25 +39,25 @@ class LightThemeConstants {
     menuBarrierBackgroundColor: barrierColor,
     // Transparent Widget Colors
     transparentWidgetBackgroundColor: transparentColor,
-    transparentWidgetForegroundColor: darkColor,
+    transparentWidgetForegroundColor: darkBlueColor,
     transparentWidgetBorderColor: lightGrayColor,
     transparentWidgetSelectedBackgroundColor: transparentColor,
     transparentWidgetSelectedForegroundColor: blueColor,
     transparentWidgetSelectedBorderColor: blueColor,
     transparentWidgetUnselectedBackgroundColor: transparentColor,
-    transparentWidgetUnselectedForegroundColor: darkColor,
+    transparentWidgetUnselectedForegroundColor: darkBlueColor,
     transparentWidgetUnselectedBorderColor: lightGrayColor,
     transparentWidgetDisabledBackgroundColor: transparentColor,
     transparentWidgetDisabledForegroundColor: darkGrayColor,
     transparentWidgetDisabledBorderColor: lightGrayColor,
     // Filled Widget Colors
-    filledWidgetBackgroundColor: darkColor,
+    filledWidgetBackgroundColor: darkBlueColor,
     filledWidgetForegroundColor: lightColor,
     filledWidgetBorderColor: lightGrayColor,
     filledWidgetSelectedBackgroundColor: blueColor,
     filledWidgetSelectedForegroundColor: lightColor,
     filledWidgetSelectedBorderColor: blueColor,
-    filledWidgetUnselectedBackgroundColor: darkColor,
+    filledWidgetUnselectedBackgroundColor: darkBlueColor,
     filledWidgetUnselectedForegroundColor: lightColor,
     filledWidgetUnselectedBorderColor: lightGrayColor,
     filledWidgetDisabledBackgroundColor: darkGrayColor,
@@ -72,35 +73,46 @@ class LightThemeConstants {
     // Transparent Text Colors
     smallTextWithTransparentBackground: TextStyle(
       fontSize: smallFontSize,
-      color: darkColor,
+      color: darkBlueColor,
       fontFamily: _fontFamily,
     ),
     smallBoldTextWithTransparentBackground: TextStyle(
       fontSize: smallFontSize,
       fontWeight: FontWeight.bold,
-      color: darkColor,
+      color: darkBlueColor,
       fontFamily: _fontFamily,
     ),
     mediumTextWithTransparentBackground: TextStyle(
       fontSize: mediumFontSize,
-      color: darkColor,
+      color: darkBlueColor,
       fontFamily: _fontFamily,
     ),
     mediumBoldTextWithTransparentBackground: TextStyle(
       fontSize: mediumFontSize,
       fontWeight: FontWeight.bold,
-      color: darkColor,
+      color: darkBlueColor,
       fontFamily: _fontFamily,
     ),
     largeTextWithTransparentBackground: TextStyle(
       fontSize: largeFontSize,
-      color: darkColor,
+      color: darkBlueColor,
       fontFamily: _fontFamily,
     ),
     largeBoldTextWithTransparentBackground: TextStyle(
       fontSize: largeFontSize,
       fontWeight: FontWeight.bold,
-      color: darkColor,
+      color: darkBlueColor,
+      fontFamily: _fontFamily,
+    ),
+    xlargeTextWithTransparentBackground: TextStyle(
+      fontSize: xlargeFontSize,
+      color: darkBlueColor,
+      fontFamily: _fontFamily,
+    ),
+    xlargeBoldTextWithTransparentBackground: TextStyle(
+      fontSize: xlargeFontSize,
+      fontWeight: FontWeight.bold,
+      color: darkBlueColor,
       fontFamily: _fontFamily,
     ),
     // Filled Text Colors
@@ -133,6 +145,17 @@ class LightThemeConstants {
     ),
     largeBoldTextWithFilledBackground: TextStyle(
       fontSize: largeFontSize,
+      fontWeight: FontWeight.bold,
+      color: lightColor,
+      fontFamily: _fontFamily,
+    ),
+    xlargeTextWithFilledBackground: TextStyle(
+      fontSize: xlargeFontSize,
+      color: lightColor,
+      fontFamily: _fontFamily,
+    ),
+    xlargeBoldTextWithFilledBackground: TextStyle(
+      fontSize: xlargeFontSize,
       fontWeight: FontWeight.bold,
       color: lightColor,
       fontFamily: _fontFamily,
@@ -171,6 +194,17 @@ class LightThemeConstants {
       color: darkGrayColor,
       fontFamily: _fontFamily,
     ),
+    xlargeDisabledTextWithTransparentBackground: TextStyle(
+      fontSize: xlargeFontSize,
+      color: darkGrayColor,
+      fontFamily: _fontFamily,
+    ),
+    xlargeBoldDisabledTextWithTransparentBackground: TextStyle(
+      fontSize: xlargeFontSize,
+      fontWeight: FontWeight.bold,
+      color: darkGrayColor,
+      fontFamily: _fontFamily,
+    ),
     // Disabled Filled Text Colors
     smallDisabledTextWithFilledBackground: TextStyle(
       fontSize: smallFontSize,
@@ -201,6 +235,17 @@ class LightThemeConstants {
     ),
     largeBoldDisabledTextWithFilledBackground: TextStyle(
       fontSize: largeFontSize,
+      fontWeight: FontWeight.bold,
+      color: lightGrayColor,
+      fontFamily: _fontFamily,
+    ),
+    xlargeDisabledTextWithFilledBackground: TextStyle(
+      fontSize: xlargeFontSize,
+      color: lightGrayColor,
+      fontFamily: _fontFamily,
+    ),
+    xlargeBoldDisabledTextWithFilledBackground: TextStyle(
+      fontSize: xlargeFontSize,
       fontWeight: FontWeight.bold,
       color: lightGrayColor,
       fontFamily: _fontFamily,
@@ -239,6 +284,17 @@ class LightThemeConstants {
       color: blueColor,
       fontFamily: _fontFamily,
     ),
+    xlargeInfoText: TextStyle(
+      fontSize: xlargeFontSize,
+      color: blueColor,
+      fontFamily: _fontFamily,
+    ),
+    xlargeInfoBoldText: TextStyle(
+      fontSize: xlargeFontSize,
+      fontWeight: FontWeight.bold,
+      color: blueColor,
+      fontFamily: _fontFamily,
+    ),
     // Warning Text Colors
     smallWarningText: TextStyle(
       fontSize: smallFontSize,
@@ -273,6 +329,17 @@ class LightThemeConstants {
       color: orangeColor,
       fontFamily: _fontFamily,
     ),
+    xlargeWarningText: TextStyle(
+      fontSize: xlargeFontSize,
+      color: orangeColor,
+      fontFamily: _fontFamily,
+    ),
+    xlargeWarningBoldText: TextStyle(
+      fontSize: xlargeFontSize,
+      fontWeight: FontWeight.bold,
+      color: orangeColor,
+      fontFamily: _fontFamily,
+    ),
     // Error Text Colors
     smallErrorText: TextStyle(
       fontSize: smallFontSize,
@@ -303,6 +370,17 @@ class LightThemeConstants {
     ),
     largeErrorBoldText: TextStyle(
       fontSize: largeFontSize,
+      fontWeight: FontWeight.bold,
+      color: redColor,
+      fontFamily: _fontFamily,
+    ),
+    xlargeErrorText: TextStyle(
+      fontSize: xlargeFontSize,
+      color: redColor,
+      fontFamily: _fontFamily,
+    ),
+    xlargeErrorBoldText: TextStyle(
+      fontSize: xlargeFontSize,
       fontWeight: FontWeight.bold,
       color: redColor,
       fontFamily: _fontFamily,

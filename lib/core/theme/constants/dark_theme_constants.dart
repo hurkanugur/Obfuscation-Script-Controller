@@ -9,15 +9,15 @@ class DarkThemeConstants {
   // Theme Data
   static const String _fontFamily = 'Poppins';
 
-  // Color Palette
-  static const Color lightColor = Color(0xFFD4D4D4);
+  // Dark Theme Color Palette
+  static const Color lightColor = Color(0xFFCED4DA);
   static const Color veryDarkColor = Color(0xFF1E1E1E);
-  static const Color darkColor = Color.fromARGB(255, 39, 38, 38);
+  static const Color darkColor = Color(0xFF2E2E2E);
   static const Color blueColor = Color(0xFF007ACC);
   static const Color redColor = Color(0xFFB00020);
   static const Color orangeColor = Color(0xFFD18616);
-  static const Color lightGrayColor = Color(0xFF5C5C5C);
-  static const Color darkGrayColor = Color(0xFF3C3C3C);
+  static const Color lightGrayColor = Color(0xFF6C6C6C);
+  static const Color darkGrayColor = Color(0xFF3A3A3C);
   static const Color barrierColor = kCupertinoModalBarrierColor;
   static const Color transparentColor = Colors.transparent;
 
@@ -25,6 +25,7 @@ class DarkThemeConstants {
   static const double smallFontSize = 12.0;
   static const double mediumFontSize = 16.0;
   static const double largeFontSize = 20.0;
+  static const double xlargeFontSize = 24.0;
 
   static const AppColors appColors = AppColors(
     // General Colors
@@ -104,6 +105,17 @@ class DarkThemeConstants {
       color: lightColor,
       fontFamily: _fontFamily,
     ),
+    xlargeTextWithTransparentBackground: TextStyle(
+      fontSize: xlargeFontSize,
+      color: lightColor,
+      fontFamily: _fontFamily,
+    ),
+    xlargeBoldTextWithTransparentBackground: TextStyle(
+      fontSize: xlargeFontSize,
+      fontWeight: FontWeight.bold,
+      color: lightColor,
+      fontFamily: _fontFamily,
+    ),
     // Filled Text Colors
     smallTextWithFilledBackground: TextStyle(
       fontSize: smallFontSize,
@@ -134,6 +146,17 @@ class DarkThemeConstants {
     ),
     largeBoldTextWithFilledBackground: TextStyle(
       fontSize: largeFontSize,
+      fontWeight: FontWeight.bold,
+      color: lightColor,
+      fontFamily: _fontFamily,
+    ),
+    xlargeTextWithFilledBackground: TextStyle(
+      fontSize: xlargeFontSize,
+      color: lightColor,
+      fontFamily: _fontFamily,
+    ),
+    xlargeBoldTextWithFilledBackground: TextStyle(
+      fontSize: xlargeFontSize,
       fontWeight: FontWeight.bold,
       color: lightColor,
       fontFamily: _fontFamily,
@@ -172,6 +195,17 @@ class DarkThemeConstants {
       color: lightGrayColor,
       fontFamily: _fontFamily,
     ),
+    xlargeDisabledTextWithTransparentBackground: TextStyle(
+      fontSize: xlargeFontSize,
+      color: lightGrayColor,
+      fontFamily: _fontFamily,
+    ),
+    xlargeBoldDisabledTextWithTransparentBackground: TextStyle(
+      fontSize: xlargeFontSize,
+      fontWeight: FontWeight.bold,
+      color: lightGrayColor,
+      fontFamily: _fontFamily,
+    ),
     // Disabled Filled Text Colors
     smallDisabledTextWithFilledBackground: TextStyle(
       fontSize: smallFontSize,
@@ -202,6 +236,17 @@ class DarkThemeConstants {
     ),
     largeBoldDisabledTextWithFilledBackground: TextStyle(
       fontSize: largeFontSize,
+      fontWeight: FontWeight.bold,
+      color: darkGrayColor,
+      fontFamily: _fontFamily,
+    ),
+    xlargeDisabledTextWithFilledBackground: TextStyle(
+      fontSize: xlargeFontSize,
+      color: darkGrayColor,
+      fontFamily: _fontFamily,
+    ),
+    xlargeBoldDisabledTextWithFilledBackground: TextStyle(
+      fontSize: xlargeFontSize,
       fontWeight: FontWeight.bold,
       color: darkGrayColor,
       fontFamily: _fontFamily,
@@ -240,6 +285,17 @@ class DarkThemeConstants {
       color: blueColor,
       fontFamily: _fontFamily,
     ),
+    xlargeInfoText: TextStyle(
+      fontSize: xlargeFontSize,
+      color: blueColor,
+      fontFamily: _fontFamily,
+    ),
+    xlargeInfoBoldText: TextStyle(
+      fontSize: xlargeFontSize,
+      fontWeight: FontWeight.bold,
+      color: blueColor,
+      fontFamily: _fontFamily,
+    ),
     // Warning Text Colors
     smallWarningText: TextStyle(
       fontSize: smallFontSize,
@@ -274,6 +330,17 @@ class DarkThemeConstants {
       color: orangeColor,
       fontFamily: _fontFamily,
     ),
+    xlargeWarningText: TextStyle(
+      fontSize: xlargeFontSize,
+      color: orangeColor,
+      fontFamily: _fontFamily,
+    ),
+    xlargeWarningBoldText: TextStyle(
+      fontSize: xlargeFontSize,
+      fontWeight: FontWeight.bold,
+      color: orangeColor,
+      fontFamily: _fontFamily,
+    ),
     // Error Text Colors
     smallErrorText: TextStyle(
       fontSize: smallFontSize,
@@ -304,6 +371,17 @@ class DarkThemeConstants {
     ),
     largeErrorBoldText: TextStyle(
       fontSize: largeFontSize,
+      fontWeight: FontWeight.bold,
+      color: redColor,
+      fontFamily: _fontFamily,
+    ),
+    xlargeErrorText: TextStyle(
+      fontSize: xlargeFontSize,
+      color: redColor,
+      fontFamily: _fontFamily,
+    ),
+    xlargeErrorBoldText: TextStyle(
+      fontSize: xlargeFontSize,
       fontWeight: FontWeight.bold,
       color: redColor,
       fontFamily: _fontFamily,

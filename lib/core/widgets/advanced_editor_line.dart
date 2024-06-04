@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:obfuscation_controller/config/app_dimensions.dart';
 import 'package:obfuscation_controller/core/theme/extension/theme_extension.dart';
-import 'package:obfuscation_controller/app/domain/file/enum/line_type.dart';
-import 'package:obfuscation_controller/app/domain/file/model/advanced_line_model.dart';
+import 'package:obfuscation_controller/app/domain/editor/enum/line_type.dart';
+import 'package:obfuscation_controller/app/domain/editor/model/advanced_line_model.dart';
 
 class AdvancedEditorLine extends ConsumerWidget {
   final AdvancedLineModel advancedEditorLineModel;
