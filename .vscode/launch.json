@@ -1,0 +1,83 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Obfuscation Controller (Dev) (Debug Mode)",
+            "request": "launch",
+            "type": "dart",
+            "program": "lib/environment/profile/main_obfuscation_controller_dev.dart",
+            "flutterMode": "debug",
+            "args": [
+                "--flavor",
+                "obfuscation_controller_dev",
+                "--target",
+                "lib/environment/profile/main_obfuscation_controller_dev.dart"
+            ]
+        },
+        {
+            "name": "Obfuscation Controller (Dev) (Release Mode)",
+            "request": "launch",
+            "type": "dart",
+            "program": "lib/environment/profile/main_obfuscation_controller_dev.dart",
+            "flutterMode": "release",
+            "args": [
+                "--flavor",
+                "obfuscation_controller_dev",
+                "--target",
+                "lib/environment/profile/main_obfuscation_controller_dev.dart"
+            ]
+        },
+        {
+            "name": "Obfuscation Controller (Stage) (Debug Mode)",
+            "request": "launch",
+            "type": "dart",
+            "program": "lib/environment/profile/main_obfuscation_controller_stage.dart",
+            "flutterMode": "debug",
+            "args": [
+                "--flavor",
+                "obfuscation_controller_stage",
+                "--target",
+                "lib/environment/profile/main_obfuscation_controller_stage.dart"
+            ]
+        },
+        {
+            "name": "Obfuscation Controller (Stage) (Release Mode)",
+            "request": "launch",
+            "type": "dart",
+            "program": "lib/environment/profile/main_obfuscation_controller_stage.dart",
+            "flutterMode": "release",
+            "args": [
+                "--flavor",
+                "obfuscation_controller_stage",
+                "--target",
+                "lib/environment/profile/main_obfuscation_controller_stage.dart"
+            ]
+        },
+        {
+            "name": "Obfuscation Controller (Prod) (Debug Mode)",
+            "request": "launch",
+            "type": "dart",
+            "program": "lib/environment/profile/main_obfuscation_controller_prod.dart",
+            "flutterMode": "debug",
+            "args": [
+                "--flavor",
+                "obfuscation_controller_prod",
+                "--target",
+                "lib/environment/profile/main_obfuscation_controller_prod.dart"
+            ]
+        },
+        {
+            "name": "Obfuscation Controller (Prod) (Release Mode)",
+            "request": "launch",
+            "type": "dart",
+            "program": "lib/environment/profile/main_obfuscation_controller_prod.dart",
+            "flutterMode": "release",
+            "args": [
+                "--flavor",
+                "obfuscation_controller_prod",
+                "--target",
+                "lib/environment/profile/main_obfuscation_controller_prod.dart"
+            ]
+        },
+    ]
+}

@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:obfuscation_controller/app/domain/editor/enum/line_type.dart';
 import 'package:obfuscation_controller/app/domain/editor/model/advanced_line_model.dart';
@@ -16,6 +18,7 @@ class EditorViewState {
   final ItemScrollController obfuscationFileScrollController;
   final ItemScrollController dependencyFolderScrollController;
   final ScrollController debugConsoleScrollController;
+  final TextEditingController searchBarController;
 
   const EditorViewState({
     required this.obfuscationFilePath,
@@ -25,6 +28,7 @@ class EditorViewState {
     required this.obfuscationFileScrollController,
     required this.dependencyFolderScrollController,
     required this.debugConsoleScrollController,
+    required this.searchBarController,
   });
 
   EditorViewState copyWith({
@@ -35,6 +39,7 @@ class EditorViewState {
     ItemScrollController? obfuscationFileScrollController,
     ItemScrollController? dependencyFolderScrollController,
     ScrollController? debugConsoleScrollController,
+    TextEditingController? searchBarController,
   }) {
     return EditorViewState(
       obfuscationFilePath: obfuscationFilePath ?? this.obfuscationFilePath,
@@ -44,6 +49,7 @@ class EditorViewState {
       obfuscationFileScrollController: obfuscationFileScrollController ?? this.obfuscationFileScrollController,
       dependencyFolderScrollController: dependencyFolderScrollController ?? this.dependencyFolderScrollController,
       debugConsoleScrollController: debugConsoleScrollController ?? this.debugConsoleScrollController,
+      searchBarController: searchBarController ?? this.searchBarController,
     );
   }
 }
@@ -63,6 +69,7 @@ class EditorViewController extends StateNotifier<EditorViewState> {
             obfuscationFileScrollController: ItemScrollController(),
             dependencyFolderScrollController: ItemScrollController(),
             debugConsoleScrollController: ScrollController(),
+            searchBarController: TextEditingController(),
           ),
         );
 
@@ -174,6 +181,20 @@ class EditorViewController extends StateNotifier<EditorViewState> {
     return combinedList;
   }
 
+  Future<void> scrollBySearchBarValue({required String searchbarText}) async {
+    final String lowercaseSearchValue = searchbarText.toLowerCase();
+    final int obfuscationFileIndex = state.obfuscationFileLines.indexWhere((element) => element.line.toLowerCase().contains(lowercaseSearchValue));
+    final int dependencyFolderIndex = state.dependencyFolderContents.indexWhere((element) => element.line.toLowerCase().contains(lowercaseSearchValue));
+
+    if (obfuscationFileIndex >= 0) {
+      obfuscationFileScrollToIndex(targetIndex: obfuscationFileIndex);
+    }
+
+    if (dependencyFolderIndex >= 0) {
+      dependencyFolderScrollToIndex(targetIndex: dependencyFolderIndex);
+    }
+  }
+
   void resetState() {
     state = EditorViewState(
       obfuscationFilePath: '',
@@ -183,6 +204,7 @@ class EditorViewController extends StateNotifier<EditorViewState> {
       obfuscationFileScrollController: ItemScrollController(),
       dependencyFolderScrollController: ItemScrollController(),
       debugConsoleScrollController: ScrollController(),
+      searchBarController: TextEditingController(),
     );
   }
 }

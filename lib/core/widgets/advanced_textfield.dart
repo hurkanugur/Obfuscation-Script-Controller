@@ -10,7 +10,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 class AdvancedTextField extends ConsumerWidget {
   final String title;
   final TextEditingController textEditingController;
-  final FocusNode focusNode;
+  final FocusNode? focusNode;
   final TextInputAction textInputAction;
   final AdvancedBorderModel border;
   final String? hintText;
@@ -33,7 +33,7 @@ class AdvancedTextField extends ConsumerWidget {
     super.key,
     required this.title,
     required this.textEditingController,
-    required this.focusNode,
+    this.focusNode,
     this.textInputAction = TextInputAction.done,
     this.border = const AdvancedBorderModel(),
     this.hintText,
@@ -98,13 +98,21 @@ class AdvancedTextField extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Container(
-      constraints: BoxConstraints(
-        minHeight: AppDimensions.widgetHeight,
-      ),
-      width: MediaQuery.sizeOf(context).width,
-      child: _createTextField(context: context),
-    );
+    if (maxLines == null) {
+      return Container(
+        constraints: BoxConstraints(
+          minHeight: AppDimensions.widgetHeight,
+        ),
+        width: MediaQuery.sizeOf(context).width,
+        child: _createTextField(context: context),
+      );
+    } else {
+      return SizedBox(
+        width: MediaQuery.sizeOf(context).width,
+        height: AppDimensions.widgetHeight,
+        child: _createTextField(context: context),
+      );
+    }
   }
 
   /// Creates a button.

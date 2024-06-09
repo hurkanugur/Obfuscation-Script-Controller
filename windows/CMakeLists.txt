@@ -23,6 +23,7 @@ else()
       "Debug" "Profile" "Release")
   endif()
 endif()
+
 # Define settings for the Profile build mode.
 set(CMAKE_EXE_LINKER_FLAGS_PROFILE "${CMAKE_EXE_LINKER_FLAGS_RELEASE}")
 set(CMAKE_SHARED_LINKER_FLAGS_PROFILE "${CMAKE_SHARED_LINKER_FLAGS_RELEASE}")
@@ -49,14 +50,48 @@ endfunction()
 set(FLUTTER_MANAGED_DIR "${CMAKE_CURRENT_SOURCE_DIR}/flutter")
 add_subdirectory(${FLUTTER_MANAGED_DIR})
 
+# Set flavor environment variable based on the build type
+if(NOT DEFINED ENV{FLAVOR})
+  set(ENV{FLAVOR} "dev")
+endif()
+
+set(FLAVOR "$ENV{FLAVOR}")
+
+set(FLUTTER_TARGET "${CMAKE_CURRENT_SOURCE_DIR}/../lib/environment/profile/main_obfuscation_controller_${FLAVOR}.dart")
+
 # Application build; see runner/CMakeLists.txt.
 add_subdirectory("runner")
-
 
 # Generated plugin build rules, which manage building the plugins and adding
 # them to the application.
 include(flutter/generated_plugins.cmake)
 
+# Set the application icon based on the flavor
+if(FLAVOR STREQUAL "dev")
+  set(APP_ICON_PATH "${CMAKE_CURRENT_SOURCE_DIR}/../assets/image/app_icon_obfuscation_controller_dev.png")
+  set(APP_NAME "Obfuscation Controller (Dev)")
+elseif(FLAVOR STREQUAL "stage")
+  set(APP_ICON_PATH "${CMAKE_CURRENT_SOURCE_DIR}/../assets/image/app_icon_obfuscation_controller_stage.png")
+  set(APP_NAME "Obfuscation Controller (Stage)")
+elseif(FLAVOR STREQUAL "prod")
+  set(APP_ICON_PATH "${CMAKE_CURRENT_SOURCE_DIR}/../assets/image/app_icon_obfuscation_controller_prod.png")
+  set(APP_NAME "Obfuscation Controller")
+else()
+  message(FATAL_ERROR "Unknown FLAVOR: ${FLAVOR}")
+endif()
+
+# Add a custom command to copy the app icon to the build directory
+add_custom_command(
+  TARGET ${BINARY_NAME} POST_BUILD
+  COMMAND ${CMAKE_COMMAND} -E copy_if_different
+  "${APP_ICON_PATH}"
+  "$<TARGET_FILE_DIR:${BINARY_NAME}>/app_icon.png"
+)
+
+# Set the application name
+set_target_properties(${BINARY_NAME} PROPERTIES
+  OUTPUT_NAME "${APP_NAME}"
+)
 
 # === Installation ===
 # Support files are copied into place next to the executable, so that it can

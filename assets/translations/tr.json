@@ -99,6 +99,7 @@
         "WEB_CERTIFICATE_HAS_BEEN_TRUSTED_SUCCESSFULLY": "Web sertifikası başarılı bir şekilde güvenildi.",
         "STORAGE_ACCESS_PERMISSION_REQUEST_TITLE": "Depolama Erişim İzni",
         "STORAGE_ACCESS_PERMISSION_REQUEST_EXPLANATION": "İndirilenler ve Dosyalar klasörüne erişmek için izin gerekiyor.",
-        "OPEN_SETTINGS": "Ayarları Aç"
+        "OPEN_SETTINGS": "Ayarları Aç",
+        "QUICK_SEARCH": "Hızlı Arama"
     }
 }

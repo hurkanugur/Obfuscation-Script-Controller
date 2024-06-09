@@ -99,6 +99,7 @@
         "WEB_CERTIFICATE_HAS_BEEN_TRUSTED_SUCCESSFULLY": "The web certificate has been trusted successfully.",
         "STORAGE_ACCESS_PERMISSION_REQUEST_TITLE": "Storage Access Permission",
         "STORAGE_ACCESS_PERMISSION_REQUEST_EXPLANATION": "Permission is required to access the Downloads and Files folder.",
-        "OPEN_SETTINGS": "Open Settings"
+        "OPEN_SETTINGS": "Open Settings",
+        "QUICK_SEARCH": "Quick Search"
     }
 }

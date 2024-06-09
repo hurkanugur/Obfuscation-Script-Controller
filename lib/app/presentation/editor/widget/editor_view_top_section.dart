@@ -15,6 +15,7 @@ import 'package:obfuscation_controller/core/storage/extension/shared_preference_
 import 'package:obfuscation_controller/core/theme/provider/theme_provider.dart';
 import 'package:obfuscation_controller/core/widgets/advanced_button_with_icon.dart';
 import 'package:obfuscation_controller/core/widgets/advanced_button_with_text.dart';
+import 'package:obfuscation_controller/core/widgets/advanced_textfield.dart';
 import 'package:obfuscation_controller/core/widgets/enum/widget_status_type.dart';
 import 'package:obfuscation_controller/core/widgets/enum/widget_style_type.dart';
 
@@ -23,61 +24,84 @@ class EditorViewTopSection extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final editorViewState = ref.watch(EditorViewProvider.editorViewProvider);
     final isDarkTheme = Theme.of(context).brightness == Brightness.dark;
     final isEnglish = ref.sharedPreference.getLanguageType() == LanguageType.english;
 
-    return Row(
-      children: <Widget>[
-        SizedBox(
-          width: AppDimensions.widgetHeight,
-          height: AppDimensions.widgetHeight,
-          child: AdvancedIconButton(
-            icon: AppIcons.backIcon,
-            widgetStyleType: WidgetStyleType.transparent,
-            widgetType: WidgetType.withTransparentParentWidget,
-            tooltip: ref.translateText(textType: TextType.back),
-            onTap: () => _onBackButtonClicked(ref: ref),
-          ),
-        ),
-        const Spacer(),
-        SizedBox(
-          width: AppDimensions.widgetHeight,
-          height: AppDimensions.widgetHeight,
-          child: AdvancedTextButton(
-            widgetStyleType: WidgetStyleType.transparent,
-            widgetType: WidgetType.withTransparentParentWidget,
-            title: isEnglish ? LanguageType.turkish.languageCode.toUpperCase() : LanguageType.english.languageCode.toUpperCase(),
-            onTap: () => _onLanguageButtonClicked(ref: ref, isEnglish: isEnglish),
-          ),
-        ),
-        const SizedBox(width: 20),
-        SizedBox(
-          width: AppDimensions.widgetHeight,
-          height: AppDimensions.widgetHeight,
-          child: AdvancedIconButton(
-            icon: isDarkTheme ? AppIcons.lightThemeIcon : AppIcons.darkThemeIcon,
-            widgetStyleType: WidgetStyleType.transparent,
-            widgetType: WidgetType.withTransparentParentWidget,
-            tooltip: ref.translateText(
-              textType: isDarkTheme ? TextType.lightTheme : TextType.darkTheme,
+    return SizedBox(
+      width: MediaQuery.sizeOf(context).width,
+      height: AppDimensions.widgetHeight,
+      child: Row(
+        children: <Widget>[
+          SizedBox(
+            width: AppDimensions.widgetHeight,
+            height: AppDimensions.widgetHeight,
+            child: AdvancedIconButton(
+              icon: AppIcons.backIcon,
+              widgetStyleType: WidgetStyleType.transparent,
+              widgetType: WidgetType.withTransparentParentWidget,
+              tooltip: ref.translateText(textType: TextType.back),
+              onTap: () => _onBackButtonClicked(ref: ref),
             ),
-            onTap: () => _onThemeButtonClicked(ref: ref, isDarkTheme: isDarkTheme),
           ),
-        ),
-        const SizedBox(width: 20),
-        SizedBox(
-          width: AppDimensions.widgetHeight,
-          height: AppDimensions.widgetHeight,
-          child: AdvancedIconButton(
-            icon: AppIcons.refreshIcon,
-            widgetStyleType: WidgetStyleType.transparent,
-            widgetType: WidgetType.withTransparentParentWidget,
-            tooltip: ref.translateText(textType: TextType.refresh),
-            onTap: () => _onRefreshButtonClicked(ref: ref),
+          const SizedBox(width: 20),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.only(top: 1.2),
+              child: AdvancedTextField(
+                title: ref.translateText(textType: TextType.quickSearch),
+                floatingLabelBehavior: FloatingLabelBehavior.never,
+                hintText: ref.translateText(textType: TextType.quickSearch),
+                textEditingController: editorViewState.searchBarController,
+                onChanged: (text) async => await _onSearchBarTextChanged(text: text, ref: ref),
+              ),
+            ),
           ),
-        ),
-      ],
+          const SizedBox(width: 20),
+          SizedBox(
+            width: AppDimensions.widgetHeight,
+            height: AppDimensions.widgetHeight,
+            child: AdvancedTextButton(
+              widgetStyleType: WidgetStyleType.transparent,
+              widgetType: WidgetType.withTransparentParentWidget,
+              title: isEnglish ? LanguageType.turkish.languageCode.toUpperCase() : LanguageType.english.languageCode.toUpperCase(),
+              onTap: () => _onLanguageButtonClicked(ref: ref, isEnglish: isEnglish),
+            ),
+          ),
+          const SizedBox(width: 20),
+          SizedBox(
+            width: AppDimensions.widgetHeight,
+            height: AppDimensions.widgetHeight,
+            child: AdvancedIconButton(
+              icon: isDarkTheme ? AppIcons.lightThemeIcon : AppIcons.darkThemeIcon,
+              widgetStyleType: WidgetStyleType.transparent,
+              widgetType: WidgetType.withTransparentParentWidget,
+              tooltip: ref.translateText(
+                textType: isDarkTheme ? TextType.lightTheme : TextType.darkTheme,
+              ),
+              onTap: () => _onThemeButtonClicked(ref: ref, isDarkTheme: isDarkTheme),
+            ),
+          ),
+          const SizedBox(width: 20),
+          SizedBox(
+            width: AppDimensions.widgetHeight,
+            height: AppDimensions.widgetHeight,
+            child: AdvancedIconButton(
+              icon: AppIcons.refreshIcon,
+              widgetStyleType: WidgetStyleType.transparent,
+              widgetType: WidgetType.withTransparentParentWidget,
+              tooltip: ref.translateText(textType: TextType.refresh),
+              onTap: () => _onRefreshButtonClicked(ref: ref),
+            ),
+          ),
+        ],
+      ),
     );
+  }
+
+  Future<void> _onSearchBarTextChanged({required String text, required WidgetRef ref}) async {
+    final editorViewController = ref.read(EditorViewProvider.editorViewProvider.notifier);
+    await editorViewController.scrollBySearchBarValue(searchbarText: text);
   }
 
   Future<void> _onLanguageButtonClicked({required WidgetRef ref, required bool isEnglish}) async {

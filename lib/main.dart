@@ -15,15 +15,10 @@ import 'package:obfuscation_controller/core/storage/service/shares_preference_se
 import 'package:obfuscation_controller/core/theme/constants/dark_theme_constants.dart';
 import 'package:obfuscation_controller/core/theme/constants/light_theme_constants.dart';
 import 'package:obfuscation_controller/core/theme/provider/theme_provider.dart';
-import 'package:obfuscation_controller/environment/enum/flavor_type.dart';
-import 'package:obfuscation_controller/environment/model/flavor_config_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() async {
-  // TODO: Delete this manually set environment variable in the future.
-  AppConfig.environment = const FlavorConfigModel(flavorType: FlavorType.dev, appNameTag: ' (DEV)', bundleID: 'com.example.obfuscation_controller.dev');
-
   WidgetsFlutterBinding.ensureInitialized();
 
   final ProviderContainer providerContainer = ProviderContainer();

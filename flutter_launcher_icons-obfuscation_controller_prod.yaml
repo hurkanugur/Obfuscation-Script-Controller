@@ -1,0 +1,6 @@
+flutter_icons:
+  image_path: 'assets/image/app_icon_obfuscation_controller_prod.png'
+  windows:
+    generate: true
+  macos:
+    generate: true

@@ -43,7 +43,8 @@ enum TextType {
   webCertificateHasBeenTrustedSuccessfully('WEB_CERTIFICATE_HAS_BEEN_TRUSTED_SUCCESSFULLY'),
   storageAccessPermissionRequestTitle('STORAGE_ACCESS_PERMISSION_REQUEST_TITLE'),
   storageAccessPermissionRequestExplanation('STORAGE_ACCESS_PERMISSION_REQUEST_EXPLANATION'),
-  openSettings('OPEN_SETTINGS');
+  openSettings('OPEN_SETTINGS'),
+  quickSearch('QUICK_SEARCH');
 
   final String name;
 
