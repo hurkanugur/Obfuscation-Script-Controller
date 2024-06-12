@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:obfuscation_controller/app/domain/editor/enum/line_type.dart';
-import 'package:obfuscation_controller/app/domain/editor/model/advanced_line_model.dart';
+import 'package:obfuscation_controller/app/domain/editor/model/advanced_editor_line_model.dart';
 import 'package:obfuscation_controller/config/app_dimensions.dart';
 import 'package:obfuscation_controller/core/theme/extension/theme_extension.dart';
 import 'package:obfuscation_controller/core/widgets/advanced_editor_line.dart';
@@ -10,14 +10,14 @@ import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 class AdvancedEditorField extends ConsumerWidget {
   final String title;
   final IconData titleIcon;
-  final List<AdvancedLineModel> smartLines;
+  final List<AdvancedEditorLineModel> editorLines;
   final ItemScrollController itemScrollController;
 
   const AdvancedEditorField({
     super.key,
     required this.title,
     required this.titleIcon,
-    required this.smartLines,
+    required this.editorLines,
     required this.itemScrollController,
   });
 
@@ -25,13 +25,13 @@ class AdvancedEditorField extends ConsumerWidget {
   AdvancedEditorField copyWith({
     String? title,
     IconData? titleIcon,
-    List<AdvancedLineModel>? smartLines,
+    List<AdvancedEditorLineModel>? editorLines,
     ItemScrollController? itemScrollController,
   }) {
     return AdvancedEditorField(
       title: title ?? this.title,
       titleIcon: titleIcon ?? this.titleIcon,
-      smartLines: smartLines ?? this.smartLines,
+      editorLines: editorLines ?? this.editorLines,
       itemScrollController: itemScrollController ?? this.itemScrollController,
     );
   }
@@ -55,13 +55,15 @@ class AdvancedEditorField extends ConsumerWidget {
                 physics: const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
                 itemScrollController: itemScrollController,
                 scrollDirection: Axis.vertical,
-                itemCount: smartLines.length,
+                itemCount: editorLines.length,
                 itemBuilder: (context, index) {
-                  if (smartLines.isNotEmpty && index >= 0) {
-                    return AdvancedEditorLine(advancedEditorLineModel: smartLines.elementAt(index));
+                  if (editorLines.isNotEmpty && index >= 0) {
+                    return AdvancedEditorLine(
+                      advancedEditorLineModel: editorLines.elementAt(index),
+                    );
                   } else {
                     return const AdvancedEditorLine(
-                      advancedEditorLineModel: AdvancedLineModel(
+                      advancedEditorLineModel: AdvancedEditorLineModel(
                         filePath: '',
                         lineNumber: 0,
                         line: '',
@@ -79,32 +81,35 @@ class AdvancedEditorField extends ConsumerWidget {
   }
 
   Widget _createTitle({required WidgetRef ref}) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10),
-      width: MediaQuery.sizeOf(ref.context).width,
-      height: AppDimensions.widgetHeight,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(AppDimensions.widgetRadius),
-          topRight: Radius.circular(AppDimensions.widgetRadius),
+    return Tooltip(
+      message: title,
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 10),
+        width: MediaQuery.sizeOf(ref.context).width,
+        height: AppDimensions.widgetHeight,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(AppDimensions.widgetRadius),
+            topRight: Radius.circular(AppDimensions.widgetRadius),
+          ),
+          border: Border.all(color: ref.context.appColors.transparentWidgetBorderColor!),
         ),
-        border: Border.all(color: ref.context.appColors.transparentWidgetBorderColor!),
-      ),
-      child: Row(
-        children: [
-          Icon(
-            titleIcon,
-            color: ref.context.appColors.transparentWidgetForegroundColor,
-          ),
-          const SizedBox(width: 10),
-          Expanded(
-            child: Text(
-              title,
-              style: ref.context.appTextStyles.smallBoldTextWithTransparentBackground,
-              overflow: TextOverflow.ellipsis,
+        child: Row(
+          children: [
+            Icon(
+              titleIcon,
+              color: ref.context.appColors.transparentWidgetForegroundColor,
             ),
-          ),
-        ],
+            const SizedBox(width: 10),
+            Expanded(
+              child: Text(
+                title,
+                style: ref.context.appTextStyles.smallBoldTextWithTransparentBackground,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

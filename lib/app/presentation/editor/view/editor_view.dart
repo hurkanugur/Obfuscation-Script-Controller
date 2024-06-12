@@ -57,7 +57,7 @@ class _EditorViewState extends ConsumerState<EditorView> {
             EditorViewTopSection(),
             SizedBox(height: 20),
             Expanded(
-              flex: 5,
+              flex: 2,
               child: Row(
                 children: [
                   Expanded(child: EditorViewObfuscationFileContents()),
@@ -67,7 +67,7 @@ class _EditorViewState extends ConsumerState<EditorView> {
               ),
             ),
             SizedBox(height: 20),
-            Expanded(flex: 3, child: EditorViewBottomSection()),
+            Expanded(flex: 1, child: EditorViewBottomSection()),
           ]),
         ),
       ),

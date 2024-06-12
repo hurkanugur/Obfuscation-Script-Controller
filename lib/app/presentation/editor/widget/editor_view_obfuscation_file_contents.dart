@@ -16,7 +16,7 @@ class EditorViewObfuscationFileContents extends ConsumerWidget {
     return AdvancedEditorField(
       title: editorViewState.obfuscationFilePath.isEmpty ? ref.translateText(textType: TextType.obfuscationFile) : '${ref.translateText(textType: TextType.obfuscationFile)} (${editorViewState.obfuscationFilePath})',
       titleIcon: AppIcons.openFileIcon,
-      smartLines: editorViewState.obfuscationFileLines,
+      editorLines: editorViewState.obfuscationFileLines,
       itemScrollController: editorViewState.obfuscationFileScrollController,
     );
   }

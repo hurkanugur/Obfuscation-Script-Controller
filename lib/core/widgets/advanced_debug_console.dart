@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:obfuscation_controller/app/domain/editor/model/advanced_line_model.dart';
+import 'package:obfuscation_controller/app/domain/editor/model/advanced_console_line_model.dart';
 import 'package:obfuscation_controller/config/app_dimensions.dart';
+import 'package:obfuscation_controller/config/app_strings.dart';
 import 'package:obfuscation_controller/core/localization/enum/text_type.dart';
 import 'package:obfuscation_controller/core/localization/extension/localization_extension.dart';
 import 'package:obfuscation_controller/core/theme/extension/theme_extension.dart';
@@ -9,15 +10,13 @@ import 'package:obfuscation_controller/core/widgets/advanced_console_error_text.
 
 class AdvancedDebugConsole extends ConsumerWidget {
   final ScrollController scrollController;
-  final List<AdvancedLineModel> sortedErrorList;
-  final String Function(WidgetRef, AdvancedLineModel) errorMessageCreator;
-  final Future<void> Function(WidgetRef, AdvancedLineModel) onItemTap;
+  final List<AdvancedConsoleLineModel> consoleLines;
+  final Future<void> Function(WidgetRef, AdvancedConsoleLineModel) onItemTap;
 
   const AdvancedDebugConsole({
     super.key,
     required this.scrollController,
-    required this.sortedErrorList,
-    required this.errorMessageCreator,
+    required this.consoleLines,
     required this.onItemTap,
   });
 
@@ -51,7 +50,7 @@ class AdvancedDebugConsole extends ConsumerWidget {
             style: ref.context.appTextStyles.mediumBoldTextWithTransparentBackground,
             overflow: TextOverflow.ellipsis,
           ),
-          if (sortedErrorList.isNotEmpty) ...[
+          if (consoleLines.isNotEmpty) ...[
             Container(
               margin: const EdgeInsets.only(left: 8),
               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 1),
@@ -61,7 +60,7 @@ class AdvancedDebugConsole extends ConsumerWidget {
                 borderRadius: BorderRadius.circular(AppDimensions.widgetRadius),
               ),
               child: Text(
-                sortedErrorList.length.toString(),
+                consoleLines.length.toString(),
                 textAlign: TextAlign.start,
                 style: ref.context.appTextStyles.mediumBoldTextWithFilledBackground,
               ),
@@ -73,7 +72,7 @@ class AdvancedDebugConsole extends ConsumerWidget {
   }
 
   Widget _createListOrNoErrorsText({required WidgetRef ref}) {
-    if (sortedErrorList.isEmpty) {
+    if (consoleLines.isEmpty) {
       return Text(
         ref.translateText(textType: TextType.noErrorsFound),
         style: ref.context.appTextStyles.smallInfoBoldText,
@@ -88,13 +87,13 @@ class AdvancedDebugConsole extends ConsumerWidget {
         physics: const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
         controller: scrollController,
         scrollDirection: Axis.vertical,
-        itemCount: sortedErrorList.length,
+        itemCount: consoleLines.length,
         itemBuilder: (context, index) {
-          final AdvancedLineModel advancedLineModel = sortedErrorList.elementAt(index);
+          final AdvancedConsoleLineModel advancedConsoleLineModel = consoleLines.elementAt(index);
           return AdvancedConsoleErrorText(
-            advancedLineModel: advancedLineModel,
-            errorMessage: errorMessageCreator(ref, advancedLineModel),
-            onTap: () async => await onItemTap(ref, advancedLineModel),
+            advancedConsoleLineModel: advancedConsoleLineModel,
+            errorMessage: ref.translateText(textType: advancedConsoleLineModel.errorTextType).replaceAll('[DEPENDENCY]', advancedConsoleLineModel.dependencyFolderLine ?? AppStrings.unknownText).replaceAll('[OBFUSCATION_FILE]', advancedConsoleLineModel.obfuscationFileLine ?? AppStrings.unknownText),
+            onTap: () async => await onItemTap(ref, advancedConsoleLineModel),
           );
         },
       ),

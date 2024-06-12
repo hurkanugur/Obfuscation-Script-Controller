@@ -7,6 +7,6 @@ class AppStrings {
   /// Represents unknown or placeholder text, often used when data is unavailable.
   static const String unknownText = '-';
 
-  /// Recognizes that the line is a dependency when sees this string.
-  static const String dependencyRelatedLine = "%obfuscation.lib.folder.path%/";
+  /// Recognizes that the line is an included obfuscation line.
+  static const String obfuscationRelatedLine = '%obfuscation.lib.folder.path%/';
 }

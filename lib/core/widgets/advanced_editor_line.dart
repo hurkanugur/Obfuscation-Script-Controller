@@ -3,10 +3,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:obfuscation_controller/config/app_dimensions.dart';
 import 'package:obfuscation_controller/core/theme/extension/theme_extension.dart';
 import 'package:obfuscation_controller/app/domain/editor/enum/line_type.dart';
-import 'package:obfuscation_controller/app/domain/editor/model/advanced_line_model.dart';
+import 'package:obfuscation_controller/app/domain/editor/model/advanced_editor_line_model.dart';
 
 class AdvancedEditorLine extends ConsumerWidget {
-  final AdvancedLineModel advancedEditorLineModel;
+  final AdvancedEditorLineModel advancedEditorLineModel;
 
   const AdvancedEditorLine({
     super.key,
@@ -15,7 +15,7 @@ class AdvancedEditorLine extends ConsumerWidget {
 
   /// Creates a copy of this class.
   AdvancedEditorLine copyWith({
-    AdvancedLineModel? advancedEditorLineModel,
+    AdvancedEditorLineModel? advancedEditorLineModel,
   }) {
     return AdvancedEditorLine(
       advancedEditorLineModel: advancedEditorLineModel ?? this.advancedEditorLineModel,
@@ -47,9 +47,9 @@ class AdvancedEditorLine extends ConsumerWidget {
 
   TextStyle? _getTextStyle({required BuildContext context}) {
     return switch (advancedEditorLineModel.lineType) {
-      LineType.normal => context.appTextStyles.smallTextWithTransparentBackground,
-      LineType.success => context.appTextStyles.smallInfoText,
-      LineType.warning => context.appTextStyles.smallErrorText,
+      LineType.normal => advancedEditorLineModel.isBeingFocused ? context.appTextStyles.smallWarningBoldText : context.appTextStyles.smallTextWithTransparentBackground,
+      LineType.success => advancedEditorLineModel.isBeingFocused ? context.appTextStyles.smallWarningBoldText : context.appTextStyles.smallInfoText,
+      LineType.warning => advancedEditorLineModel.isBeingFocused ? context.appTextStyles.smallWarningBoldText : context.appTextStyles.smallErrorText,
     };
   }
 }

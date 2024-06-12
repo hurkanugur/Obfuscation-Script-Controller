@@ -65,6 +65,7 @@ class EditorViewTopSection extends ConsumerWidget {
               widgetStyleType: WidgetStyleType.transparent,
               widgetType: WidgetType.withTransparentParentWidget,
               title: isEnglish ? LanguageType.turkish.languageCode.toUpperCase() : LanguageType.english.languageCode.toUpperCase(),
+              tooltip: isEnglish ? ref.translateText(textType: TextType.turkish) : ref.translateText(textType: TextType.english),
               onTap: () => _onLanguageButtonClicked(ref: ref, isEnglish: isEnglish),
             ),
           ),

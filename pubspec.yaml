@@ -1,7 +1,7 @@
 name: obfuscation_controller
 description: "A new Flutter project."
 publish_to: 'none'
-version: 0.1.0
+version: 1.0.0
 
 environment:
   sdk: '>=3.4.0 <4.0.0'
@@ -26,7 +26,7 @@ dependencies:
   crypto: ^3.0.3 # Hashing Algorithms
   connectivity_plus: ^6.0.3 # Internet Connection
   image_picker: ^1.1.2 # Picks Images From Gallery
-  file_picker: ^8.0.3 # Picks Files From Documents and Downloads
+  file_picker: ^8.0.5 # Picks Files From Documents and Downloads
   open_filex: ^4.4.0 # Opens Files
   mime: ^1.0.5 # Mime Types For Downloading Files
   path_provider: ^2.1.3 # Path Provider

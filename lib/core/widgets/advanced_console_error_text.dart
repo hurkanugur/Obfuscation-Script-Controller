@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:obfuscation_controller/app/domain/editor/model/advanced_line_model.dart';
+import 'package:obfuscation_controller/app/domain/editor/model/advanced_console_line_model.dart';
 import 'package:obfuscation_controller/config/app_dimensions.dart';
 import 'package:obfuscation_controller/config/app_icons.dart';
 import 'package:obfuscation_controller/core/localization/enum/text_type.dart';
@@ -8,25 +8,25 @@ import 'package:obfuscation_controller/core/localization/extension/localization_
 import 'package:obfuscation_controller/core/theme/extension/theme_extension.dart';
 
 class AdvancedConsoleErrorText extends ConsumerWidget {
-  final AdvancedLineModel advancedLineModel;
+  final AdvancedConsoleLineModel advancedConsoleLineModel;
   final String errorMessage;
   final Future<void> Function() onTap;
 
   const AdvancedConsoleErrorText({
     super.key,
-    required this.advancedLineModel,
+    required this.advancedConsoleLineModel,
     required this.errorMessage,
     required this.onTap,
   });
 
   /// Creates a copy of this class.
   AdvancedConsoleErrorText copyWith({
-    AdvancedLineModel? advancedLineModel,
+    AdvancedConsoleLineModel? advancedConsoleLineModel,
     String? errorMessage,
     Future<void> Function()? onTap,
   }) {
     return AdvancedConsoleErrorText(
-      advancedLineModel: advancedLineModel ?? this.advancedLineModel,
+      advancedConsoleLineModel: advancedConsoleLineModel ?? this.advancedConsoleLineModel,
       errorMessage: errorMessage ?? this.errorMessage,
       onTap: onTap ?? this.onTap,
     );
@@ -59,10 +59,10 @@ class AdvancedConsoleErrorText extends ConsumerWidget {
                     const SizedBox(width: 10),
                     Expanded(
                       child: Text(
-                        '${advancedLineModel.filePath} → ${ref.translateText(textType: TextType.line)} (${advancedLineModel.lineNumber}):',
+                        _getPathName(ref: ref),
                         style: context.appTextStyles.smallErrorBoldText,
                         overflow: TextOverflow.ellipsis,
-                        maxLines: 1,
+                        maxLines: 2,
                       ),
                     ),
                   ],
@@ -79,5 +79,16 @@ class AdvancedConsoleErrorText extends ConsumerWidget {
         ),
       ),
     );
+  }
+
+  String _getPathName({required WidgetRef ref}) {
+    String path = '';
+    if (advancedConsoleLineModel.obfuscationFileLine != null && advancedConsoleLineModel.obfuscationLineNumber != null) {
+      path += '${ref.translateText(textType: TextType.obfuscationFile)} → ${ref.translateText(textType: TextType.line)} (${advancedConsoleLineModel.obfuscationLineNumber}) → ${advancedConsoleLineModel.obfuscationFileLine}\n';
+    }
+    if (advancedConsoleLineModel.dependencyFolderLine != null && advancedConsoleLineModel.dependencyLineNumber != null) {
+      path += '${ref.translateText(textType: TextType.dependencyFolder)} → ${ref.translateText(textType: TextType.line)} (${advancedConsoleLineModel.dependencyLineNumber}) → ${advancedConsoleLineModel.dependencyFolderLine}\n';
+    }
+    return path.trim();
   }
 }

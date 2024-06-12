@@ -10,6 +10,7 @@ class AdvancedTextButton extends ConsumerWidget {
   final WidgetStyleType widgetStyleType;
   final WidgetType widgetType;
   final String title;
+  final String tooltip;
   final Future<void> Function()? onTap;
   final AdvancedBorderModel border;
 
@@ -18,6 +19,7 @@ class AdvancedTextButton extends ConsumerWidget {
     required this.widgetStyleType,
     required this.widgetType,
     required this.title,
+    this.tooltip = '',
     required this.onTap,
     this.border = const AdvancedBorderModel(),
   });
@@ -27,6 +29,7 @@ class AdvancedTextButton extends ConsumerWidget {
     WidgetStyleType? widgetStyleType,
     WidgetType? widgetType,
     String? title,
+    String? tooltip,
     Future<void> Function()? onTap,
     AdvancedBorderModel? border,
   }) {
@@ -34,6 +37,7 @@ class AdvancedTextButton extends ConsumerWidget {
       widgetStyleType: widgetStyleType ?? this.widgetStyleType,
       widgetType: widgetType ?? this.widgetType,
       title: title ?? this.title,
+      tooltip: tooltip ?? this.tooltip,
       onTap: onTap ?? this.onTap,
       border: border ?? this.border,
     );
@@ -50,24 +54,27 @@ class AdvancedTextButton extends ConsumerWidget {
 
   /// Creates a button.
   Widget _createTextButton({required BuildContext context}) {
-    return TextButton(
-      onPressed: onTap,
-      style: ButtonStyle(
-        foregroundColor: WidgetStatePropertyAll(_getForegroundColor(context: context)),
-        backgroundColor: WidgetStatePropertyAll(_getBackgroundColor(context: context)),
-        shape: WidgetStatePropertyAll(
-          border.getRoundedRectangleBorder(
-            context: context,
-            widgetStyleType: widgetStyleType,
-            isDisabled: onTap == null,
+    return Tooltip(
+      message: tooltip,
+      child: TextButton(
+        onPressed: onTap,
+        style: ButtonStyle(
+          foregroundColor: WidgetStatePropertyAll(_getForegroundColor(context: context)),
+          backgroundColor: WidgetStatePropertyAll(_getBackgroundColor(context: context)),
+          shape: WidgetStatePropertyAll(
+            border.getRoundedRectangleBorder(
+              context: context,
+              widgetStyleType: widgetStyleType,
+              isDisabled: onTap == null,
+            ),
           ),
         ),
-      ),
-      child: Text(
-        title,
-        maxLines: 1,
-        overflow: TextOverflow.ellipsis,
-        style: _getTextStyle(context: context, onTap: onTap),
+        child: Text(
+          title,
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+          style: _getTextStyle(context: context, onTap: onTap),
+        ),
       ),
     );
   }

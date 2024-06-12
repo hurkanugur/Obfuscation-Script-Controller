@@ -23,4 +23,10 @@ class AnimationConstants {
 
   /// Delay duration in milliseconds for Lottie animation appearances.
   static const int lottieAnimationAppearanceDelayDurationMS = 500;
+
+  /// Duration in milliseconds for list scroll animations.
+  static const int editorLineHighlightDuration = 800;
+
+  /// Duration in milliseconds for search debounce time.
+  static const int searchDebounceTimeMilliseconds = 700;
 }

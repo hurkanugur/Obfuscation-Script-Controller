@@ -16,7 +16,7 @@ class EditorViewDependencyFolderContents extends ConsumerWidget {
     return AdvancedEditorField(
       title: editorViewState.dependencyFolderPath.isEmpty ? ref.translateText(textType: TextType.dependencyFolder) : '${ref.translateText(textType: TextType.dependencyFolder)} (${editorViewState.dependencyFolderPath})',
       titleIcon: AppIcons.openFolderIcon,
-      smartLines: editorViewState.dependencyFolderContents,
+      editorLines: editorViewState.dependencyFolderContents,
       itemScrollController: editorViewState.dependencyFolderScrollController,
     );
   }

@@ -1,9 +1,11 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:obfuscation_controller/app/domain/editor/enum/line_type.dart';
-import 'package:obfuscation_controller/app/domain/editor/model/advanced_line_model.dart';
+import 'package:obfuscation_controller/app/domain/editor/model/advanced_console_line_model.dart';
+import 'package:obfuscation_controller/app/domain/editor/model/advanced_editor_line_model.dart';
 import 'package:obfuscation_controller/app/domain/editor/usecase/fetch_file_contents_usecase.dart';
 import 'package:obfuscation_controller/core/animation/constants/animation_constants.dart';
 import 'package:obfuscation_controller/core/base/model/operation_result.dart';
@@ -13,8 +15,9 @@ import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 class EditorViewState {
   final String obfuscationFilePath;
   final String dependencyFolderPath;
-  final List<AdvancedLineModel> obfuscationFileLines;
-  final List<AdvancedLineModel> dependencyFolderContents;
+  final List<AdvancedEditorLineModel> obfuscationFileLines;
+  final List<AdvancedEditorLineModel> dependencyFolderContents;
+  final List<AdvancedConsoleLineModel> consoleLines;
   final ItemScrollController obfuscationFileScrollController;
   final ItemScrollController dependencyFolderScrollController;
   final ScrollController debugConsoleScrollController;
@@ -25,6 +28,7 @@ class EditorViewState {
     required this.dependencyFolderPath,
     required this.obfuscationFileLines,
     required this.dependencyFolderContents,
+    required this.consoleLines,
     required this.obfuscationFileScrollController,
     required this.dependencyFolderScrollController,
     required this.debugConsoleScrollController,
@@ -34,8 +38,9 @@ class EditorViewState {
   EditorViewState copyWith({
     String? obfuscationFilePath,
     String? dependencyFolderPath,
-    List<AdvancedLineModel>? obfuscationFileLines,
-    List<AdvancedLineModel>? dependencyFolderContents,
+    List<AdvancedEditorLineModel>? obfuscationFileLines,
+    List<AdvancedEditorLineModel>? dependencyFolderContents,
+    List<AdvancedConsoleLineModel>? consoleLines,
     ItemScrollController? obfuscationFileScrollController,
     ItemScrollController? dependencyFolderScrollController,
     ScrollController? debugConsoleScrollController,
@@ -46,6 +51,7 @@ class EditorViewState {
       dependencyFolderPath: dependencyFolderPath ?? this.dependencyFolderPath,
       obfuscationFileLines: obfuscationFileLines ?? this.obfuscationFileLines,
       dependencyFolderContents: dependencyFolderContents ?? this.dependencyFolderContents,
+      consoleLines: consoleLines ?? this.consoleLines,
       obfuscationFileScrollController: obfuscationFileScrollController ?? this.obfuscationFileScrollController,
       dependencyFolderScrollController: dependencyFolderScrollController ?? this.dependencyFolderScrollController,
       debugConsoleScrollController: debugConsoleScrollController ?? this.debugConsoleScrollController,
@@ -55,6 +61,9 @@ class EditorViewState {
 }
 
 class EditorViewController extends StateNotifier<EditorViewState> {
+  /// This method is used for debounce timer for the search field.
+  static Timer? _searchDebounceTimer;
+
   final FetchFileContentsUseCase _fetchFileContentsUseCase;
 
   EditorViewController({
@@ -66,6 +75,7 @@ class EditorViewController extends StateNotifier<EditorViewState> {
             dependencyFolderPath: '',
             obfuscationFileLines: [],
             dependencyFolderContents: [],
+            consoleLines: [],
             obfuscationFileScrollController: ItemScrollController(),
             dependencyFolderScrollController: ItemScrollController(),
             debugConsoleScrollController: ScrollController(),
@@ -78,34 +88,42 @@ class EditorViewController extends StateNotifier<EditorViewState> {
     required String dependencyFolderPath,
     required WidgetRef ref,
   }) async {
-    final OperationResult<Map<String, List<AdvancedLineModel>>> smartLinesResult = _fetchFileContentsUseCase.execute(
+    final OperationResult<(List<AdvancedEditorLineModel>, List<AdvancedEditorLineModel>, List<AdvancedConsoleLineModel>)> operationResult = _fetchFileContentsUseCase.execute(
       obfuscationFilePath: obfuscationFilePath,
       dependencyFolderPath: dependencyFolderPath,
     );
 
-    if (smartLinesResult.hasData) {
+    if (operationResult.hasData) {
       state = state.copyWith(
-        obfuscationFilePath: smartLinesResult.data.values.first.isEmpty ? '' : smartLinesResult.data.values.first.first.filePath,
-        obfuscationFileLines: smartLinesResult.data.values.first,
-        dependencyFolderPath: smartLinesResult.data.values.last.isEmpty ? '' : smartLinesResult.data.values.last.first.filePath,
-        dependencyFolderContents: smartLinesResult.data.values.last,
+        obfuscationFilePath: obfuscationFilePath,
+        obfuscationFileLines: operationResult.data.$1,
+        dependencyFolderPath: dependencyFolderPath,
+        dependencyFolderContents: operationResult.data.$2,
+        consoleLines: operationResult.data.$3,
       );
     }
 
-    if (smartLinesResult.hasFailure) {
-      ref.showFailureSnackbar(failure: smartLinesResult.failure!);
+    if (operationResult.hasFailure) {
+      ref.showFailureSnackbar(failure: operationResult.failure!);
     }
   }
 
   Future<void> obfuscationFileScrollToIndex({required int targetIndex}) async {
     if (state.obfuscationFileScrollController.isAttached) {
+      state.obfuscationFileLines[targetIndex] = state.obfuscationFileLines.elementAt(targetIndex).copyWith(isBeingFocused: true);
+      state = state.copyWith();
+
       await state.obfuscationFileScrollController.scrollTo(
         index: targetIndex,
         alignment: 0.5,
         opacityAnimationWeights: [20, 20, 60],
-        duration: const Duration(seconds: 1),
+        duration: const Duration(milliseconds: AnimationConstants.listScrollAnimationDurationMS),
         curve: AnimationConstants.listScrollAnimationCurve,
       );
+
+      await Future.delayed(const Duration(milliseconds: AnimationConstants.editorLineHighlightDuration));
+      state.obfuscationFileLines[targetIndex] = state.obfuscationFileLines.elementAt(targetIndex).copyWith(isBeingFocused: false);
+      state = state.copyWith();
     }
   }
 
@@ -130,13 +148,20 @@ class EditorViewController extends StateNotifier<EditorViewState> {
 
   Future<void> dependencyFolderScrollToIndex({required int targetIndex}) async {
     if (state.dependencyFolderScrollController.isAttached) {
+      state.dependencyFolderContents[targetIndex] = state.dependencyFolderContents.elementAt(targetIndex).copyWith(isBeingFocused: true);
+      state = state.copyWith();
+
       await state.dependencyFolderScrollController.scrollTo(
         index: targetIndex,
         alignment: 0.5,
         opacityAnimationWeights: [20, 20, 60],
-        duration: const Duration(seconds: 1),
+        duration: const Duration(milliseconds: AnimationConstants.listScrollAnimationDurationMS),
         curve: AnimationConstants.listScrollAnimationCurve,
       );
+
+      await Future.delayed(const Duration(milliseconds: AnimationConstants.editorLineHighlightDuration));
+      state.dependencyFolderContents[targetIndex] = state.dependencyFolderContents.elementAt(targetIndex).copyWith(isBeingFocused: false);
+      state = state.copyWith();
     }
   }
 
@@ -159,40 +184,24 @@ class EditorViewController extends StateNotifier<EditorViewState> {
     await dependencyFolderScrollToIndex(targetIndex: endIndex);
   }
 
-  int getNumberOfErrors() {
-    final int fileContentErrorsCount = state.obfuscationFileLines.where((e) => e.lineType == LineType.warning).length;
-    final int folderContentErrorsCount = state.dependencyFolderContents.where((e) => e.lineType == LineType.warning).length;
-    return fileContentErrorsCount + folderContentErrorsCount;
-  }
-
-  bool isObfuscationFileLine({required String filePath}) {
-    return filePath == state.obfuscationFilePath;
-  }
-
-  bool isDependencyFolderLine({required String filePath}) {
-    return filePath == state.dependencyFolderPath;
-  }
-
-  List<AdvancedLineModel> getSortedErrorList() {
-    final List<AdvancedLineModel> fileContentErrorLines = state.obfuscationFileLines.where((e) => e.lineType == LineType.warning).toList();
-    final List<AdvancedLineModel> folderContentErrorLines = state.dependencyFolderContents.where((e) => e.lineType == LineType.warning).toList();
-    final List<AdvancedLineModel> combinedList = [...fileContentErrorLines, ...folderContentErrorLines];
-    combinedList.sort((a, b) => a.lineNumber.compareTo(b.lineNumber));
-    return combinedList;
-  }
-
   Future<void> scrollBySearchBarValue({required String searchbarText}) async {
-    final String lowercaseSearchValue = searchbarText.toLowerCase();
-    final int obfuscationFileIndex = state.obfuscationFileLines.indexWhere((element) => element.line.toLowerCase().contains(lowercaseSearchValue));
-    final int dependencyFolderIndex = state.dependencyFolderContents.indexWhere((element) => element.line.toLowerCase().contains(lowercaseSearchValue));
-
-    if (obfuscationFileIndex >= 0) {
-      obfuscationFileScrollToIndex(targetIndex: obfuscationFileIndex);
+    if (_searchDebounceTimer?.isActive ?? false) {
+      _searchDebounceTimer?.cancel();
     }
 
-    if (dependencyFolderIndex >= 0) {
-      dependencyFolderScrollToIndex(targetIndex: dependencyFolderIndex);
-    }
+    _searchDebounceTimer = Timer(const Duration(milliseconds: AnimationConstants.searchDebounceTimeMilliseconds), () async {
+      final String lowercaseSearchValue = searchbarText.toLowerCase();
+      final int obfuscationFileIndex = state.obfuscationFileLines.indexWhere((element) => element.line.toLowerCase().contains(lowercaseSearchValue));
+      final int dependencyFolderIndex = state.dependencyFolderContents.indexWhere((element) => element.line.toLowerCase().contains(lowercaseSearchValue));
+
+      if (obfuscationFileIndex >= 0) {
+        obfuscationFileScrollToIndex(targetIndex: obfuscationFileIndex);
+      }
+
+      if (dependencyFolderIndex >= 0) {
+        dependencyFolderScrollToIndex(targetIndex: dependencyFolderIndex);
+      }
+    });
   }
 
   void resetState() {
@@ -201,6 +210,7 @@ class EditorViewController extends StateNotifier<EditorViewState> {
       dependencyFolderPath: '',
       obfuscationFileLines: [],
       dependencyFolderContents: [],
+      consoleLines: [],
       obfuscationFileScrollController: ItemScrollController(),
       dependencyFolderScrollController: ItemScrollController(),
       debugConsoleScrollController: ScrollController(),
